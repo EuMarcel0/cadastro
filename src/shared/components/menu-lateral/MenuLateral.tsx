@@ -1,18 +1,48 @@
 import ImageProfile from '../../../assets/images/perfil.png';
 
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography } from '@mui/material';
 import { ReactNode } from 'react';
 import { useDrawerContext } from '../../contexts';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 interface iMenuLateral {
     children: ReactNode;
+};
+
+interface IListItemLinkProps{
+	to: string;
+	icon: string;
+	label: string;
+	handleOnClick: (() => void) | undefined;
+    children: ReactNode;
 }
+
+const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClick, children}) => {
+	const navigate = useNavigate();
+
+	const resolvedPath = useResolvedPath(to);
+	const matchPath = useMatch({path:resolvedPath.pathname, end: false });
+
+	const handleNavigateClick = () => {
+		navigate(to);
+		handleOnClick?.();
+	}
+
+	return(
+		<ListItemButton selected={!!matchPath} onClick={handleNavigateClick}>
+			<ListItemIcon>
+				<Icon>{icon}</Icon>
+			</ListItemIcon>
+			<ListItemText primary={label}/>
+		</ListItemButton>
+	)
+};	
 
 export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-	const {isDrawerOpen, toggleDrawerOpen} = useDrawerContext();
+	const {isDrawerOpen, drawerOptions, toggleDrawerOpen} = useDrawerContext();
 
 	return (
 		<Box>
@@ -25,25 +55,30 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 				>
 					<Box
 						width='100%'
-						height={theme.spacing(20)}
+						height={theme.spacing(15)}
 						display='flex'
+						flexDirection='column'
 						alignItems='center'
 						justifyContent='center'
 					>
 						<Avatar
-							sx={{ width: theme.spacing(9), height: theme.spacing(9) }}
+							sx={{ width: theme.spacing(8), height: theme.spacing(8) }}
 							src={ImageProfile}
 						/>
+						<Typography variant='overline'>Marcelo Silva</Typography>
 					</Box>
 					<Divider />
 					<Box flex='1' >
 						<List component='nav'>
-							<ListItemButton>
-								<ListItemIcon>
-									<Icon>home</Icon>
-								</ListItemIcon>
-								<ListItemText primary="Página inicial"/>
-							</ListItemButton>
+							{drawerOptions.map((item, index) => (
+								<ListItemLink key={index}
+									to={item.path}
+									label={item.label}
+									icon={item.icon}
+									handleOnClick={ smDown? toggleDrawerOpen : undefined }
+								>
+								</ListItemLink>
+							))}
 						</List>
 					</Box>
 				</Box>
