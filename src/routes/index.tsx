@@ -24,6 +24,7 @@ export const AppRoutes = () => {
     return(
         <Routes>
             <Route path="/pagina-inicial" element={<Button variant="contained" color='primary' onClick={toggleDrawerOpen}>Toggle Drawer</Button>} />
+            <Route path="/clientes" element={<Button variant="contained" color='primary' onClick={toggleDrawerOpen}>Clientes</Button>} />
             {/* <Route path="*" element={<Navigate to="/pagina-inicial"/>}/> */}
         </Routes>
     );

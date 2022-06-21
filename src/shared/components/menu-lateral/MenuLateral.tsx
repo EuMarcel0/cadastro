@@ -1,8 +1,9 @@
 import ImageProfile from '../../../assets/images/perfil.png';
 
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button } from '@mui/material';
+import { DarkMode } from '@mui/icons-material';
 import { ReactNode } from 'react';
-import { useDrawerContext } from '../../contexts';
+import { useDrawerContext, useAppThemeContext } from '../../contexts';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 interface iMenuLateral {
@@ -33,7 +34,11 @@ const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClic
 			<ListItemIcon>
 				<Icon>{icon}</Icon>
 			</ListItemIcon>
-			<ListItemText primary={label}/>
+			<ListItemText>
+				<Typography variant='caption'>
+					{label}
+				</Typography>
+			</ListItemText>
 		</ListItemButton>
 	)
 };	
@@ -43,6 +48,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const {isDrawerOpen, drawerOptions, toggleDrawerOpen} = useDrawerContext();
+	const {toggleTheme} = useAppThemeContext();
 
 	return (
 		<Box>
@@ -81,6 +87,10 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 							))}
 						</List>
 					</Box>
+					<Button onClick={toggleTheme} color='info' size='small' variant='text'>
+						<DarkMode />
+						<Typography variant='caption'>Mudar tema</Typography>
+					</Button>
 				</Box>
 			</Drawer>
 			<Box
