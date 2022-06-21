@@ -1,7 +1,8 @@
 import ImageProfile from '../../../assets/images/perfil.png';
 
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button } from '@mui/material';
-import { DarkMode } from '@mui/icons-material';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button, IconButton } from '@mui/material';
+import { Brightness4 } from '@mui/icons-material';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { ReactNode } from 'react';
 import { useDrawerContext, useAppThemeContext } from '../../contexts';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
@@ -55,8 +56,10 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 			<Drawer open={isDrawerOpen} variant={smDown? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
 				<Box
 					width={theme.spacing(28)}
-					height='100%' display='flex'
-					flexDirection='column' alignContent='center'
+					height='100%'
+					display='flex'
+					flexDirection='column'
+					alignContent='center'
 					justifyContent='center'
 				>
 					<Box
@@ -65,13 +68,25 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
-						justifyContent='center'
+				
 					>
-						<Avatar
-							sx={{ width: theme.spacing(8), height: theme.spacing(8) }}
-							src={ImageProfile}
-						/>
-						<Typography variant='overline'>Marcelo Silva</Typography>
+						{smDown &&
+							<Box display='flex' justifyContent='flex-end' width='100%'>
+								<IconButton onClick={toggleTheme} size='small'>
+									<Brightness4 />
+								</IconButton>
+								<IconButton size='small'>
+									<KeyboardArrowLeftIcon onClick={toggleDrawerOpen}/>
+								</IconButton>
+							</Box>
+						}
+						<Box display='flex' alignItems='center' flexDirection='row' gap={1}>
+							<Avatar
+								sx={{ width: theme.spacing(7), height: theme.spacing(7) }}
+								src={ImageProfile}
+							/>
+							<Typography variant='caption'>Marcelo Silva</Typography>
+						</Box>
 					</Box>
 					<Divider />
 					<Box flex='1' >
@@ -87,10 +102,6 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 							))}
 						</List>
 					</Box>
-					<Button onClick={toggleTheme} color='info' size='small' variant='text'>
-						<DarkMode />
-						<Typography variant='caption'>Mudar tema</Typography>
-					</Button>
 				</Box>
 			</Drawer>
 			<Box
