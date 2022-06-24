@@ -48,7 +48,7 @@ export const FerramentasListagem= ({
                 <Box display='flex' justifyContent='end' flex={1}>
                     <Button
                         variant='contained'
-                        endIcon={<Icon>add</Icon>}
+                        startIcon={<Icon>add</Icon>}
                         size="small"
                         onClick={onClickButtonNew}
                     >
