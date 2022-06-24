@@ -1,6 +1,6 @@
 import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
 
-interface IBarraDeFerramentasProps {
+interface IFerramentasListagemProps {
     textOfSearch?: string;
     showInputSearch?: boolean;
     handleTextOfSearch?: (newText: string) => void;
@@ -11,14 +11,14 @@ interface IBarraDeFerramentasProps {
     children?: React.ReactNode;
 }
 
-export const BarraDeFerramentas= ({
+export const FerramentasListagem= ({
     textOfSearch = '',
     showInputSearch = false,
     handleTextOfSearch,
     textButtonNew = 'Novo',
     showButtonNew = true,
     onClickButtonNew
-} : IBarraDeFerramentasProps) => {
+} : IFerramentasListagemProps) => {
 
     const theme = useTheme();
 
