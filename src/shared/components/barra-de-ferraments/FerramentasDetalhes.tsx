@@ -1,9 +1,39 @@
 import { Box, Button, Divider, Icon, Paper, useTheme } from "@mui/material";
 
-export const FerramentasDetalhes = () => {
+interface IFerramentasDetalhesProps {
+    textButtonNew?: string;
+
+    showButtonNew?: boolean;
+    showButtonBack?: boolean;
+    showButtonDelete?: boolean;
+    showButtonSave?: boolean;
+    showButtonSaveAndBack?: boolean;
+
+    onClickInNew?: () => void;
+    onClickInBack?: () => void;
+    onClickInDelete?: () => void;
+    onClickInSave?: () => void;
+    onClickInSaveAndBack?: () => void;
+};
+
+export const FerramentasDetalhes = ({
+    textButtonNew = 'Novo',
+    showButtonNew = true,
+    showButtonBack = true,
+    showButtonDelete = true,
+    showButtonSave = true,
+    showButtonSaveAndBack = false,
+
+    onClickInNew,
+    onClickInBack,
+    onClickInDelete,
+    onClickInSave,
+    onClickInSaveAndBack: onClickInSaveAndBack,
+
+}: IFerramentasDetalhesProps) => {
     const theme = useTheme();
 
-    return(
+    return (
         <Box
             component={Paper}
             height={theme.spacing(7)}
@@ -15,44 +45,59 @@ export const FerramentasDetalhes = () => {
             marginY={1}
             gap={1}
         >
-            
-            <Button
-                variant='contained'
-                startIcon={<Icon>save</Icon>}
-                size="small"
-            >
-                Salvar
-            </Button>
-            <Button
-                variant='contained'
-                startIcon={<Icon>save</Icon>}
-                size="small"
-            >
-                Salvar e voltar
-            </Button>
-            <Button
-                variant='contained'
-                startIcon={<Icon>delete</Icon>}
-                size="small"
-            >
-                Apagar
-            </Button>
-            <Button
-                variant='contained'
-                startIcon={<Icon>add</Icon>}
-                size="small"
-            >
-                Novo
-            </Button>
-            <Box display='flex' flex={1} justifyContent='end'>
+
+            {showButtonSave &&
                 <Button
                     variant='contained'
-                    startIcon={<Icon>arrow_back</Icon>}
+                    startIcon={<Icon>save</Icon>}
                     size="small"
+                    onClick={onClickInSave}
                 >
-                    Voltar
+                    Salvar
                 </Button>
-            </Box>
+            }
+            {showButtonSaveAndBack &&
+                <Button
+                    variant='contained'
+                    startIcon={<Icon>save</Icon>}
+                    size="small"
+                    onClick={onClickInSaveAndBack}
+                >
+                    Salvar e voltar
+                </Button>
+            }
+            {showButtonDelete &&
+                <Button
+                    variant='contained'
+                    startIcon={<Icon>delete</Icon>}
+                    size="small"
+                    onClick={onClickInDelete}
+                >
+                    Apagar
+                </Button>
+            }
+            {showButtonNew &&
+                <Button
+                    variant='contained'
+                    startIcon={<Icon>add</Icon>}
+                    size="small"
+                    onClick={onClickInNew}
+                >
+                    {textButtonNew}
+                </Button>
+            }
+            {showButtonBack &&
+                <Box display='flex' flex={1} justifyContent='end'>
+                    <Button
+                        variant='contained'
+                        startIcon={<Icon>arrow_back</Icon>}
+                        size="small"
+                        onClick={onClickInBack}
+                    >
+                        Voltar
+                    </Button>
+                </Box>
+            }
         </Box>
     );
 };
