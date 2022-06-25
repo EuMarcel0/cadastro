@@ -35,19 +35,21 @@ export const FerramentasDetalhes = ({
 
     return (
         <Box
+            borderRadius={0}
             component={Paper}
             height={theme.spacing(7)}
             display='flex'
             alignItems='center'
             paddingY={1}
             paddingX={2}
-            marginX={1}
+            marginX={0}
             marginY={1}
             gap={1}
         >
 
             {showButtonSave &&
                 <Button
+                    sx={{borderRadius: 0}}
                     variant='contained'
                     startIcon={<Icon>save</Icon>}
                     size="small"
@@ -58,6 +60,7 @@ export const FerramentasDetalhes = ({
             }
             {showButtonSaveAndBack &&
                 <Button
+                    sx={{borderRadius: 0}}
                     variant='contained'
                     startIcon={<Icon>save</Icon>}
                     size="small"
@@ -68,6 +71,7 @@ export const FerramentasDetalhes = ({
             }
             {showButtonDelete &&
                 <Button
+                    sx={{borderRadius: 0}}
                     variant='contained'
                     startIcon={<Icon>delete</Icon>}
                     size="small"
@@ -78,6 +82,7 @@ export const FerramentasDetalhes = ({
             }
             {showButtonNew &&
                 <Button
+                    sx={{borderRadius: 0}}
                     variant='contained'
                     startIcon={<Icon>add</Icon>}
                     size="small"
@@ -89,6 +94,7 @@ export const FerramentasDetalhes = ({
             {showButtonBack &&
                 <Box display='flex' flex={1} justifyContent='end'>
                     <Button
+                        sx={{borderRadius: 0}}
                         variant='contained'
                         startIcon={<Icon>arrow_back</Icon>}
                         size="small"
