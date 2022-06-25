@@ -71,16 +71,19 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 						justifyContent={smDown? 'flex-start' : 'center'}				
 					>
 						
-							<Box display='flex' justifyContent='flex-end' width='100%'>
-								<IconButton onClick={toggleTheme} size='small'>
-									<Brightness4 />
+						<Box display='flex' justifyContent='flex-end' width='100%'>
+							<IconButton onClick={toggleTheme} size='small'>
+								<Brightness4 />
+							</IconButton>
+							{smDown &&
+								<IconButton size='small'>
+									<KeyboardArrowLeftIcon onClick={toggleDrawerOpen}/>
 								</IconButton>
-								{smDown &&
-									<IconButton size='small'>
-										<KeyboardArrowLeftIcon onClick={toggleDrawerOpen}/>
-									</IconButton>
-								}
-							</Box>
+							}
+						</Box>
+						<Box width='100%' marginY={1} >
+							<Divider />
+						</Box>
 						<Box display='flex' alignItems='center' flexDirection='row' gap={1}>
 							<Avatar
 								sx={{ width: theme.spacing(7), height: theme.spacing(7) }}
