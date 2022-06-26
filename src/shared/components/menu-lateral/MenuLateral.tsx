@@ -64,7 +64,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 				>
 					<Box
 						width='100%'
-						height={theme.spacing(15)}
+						padding='5px'
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
@@ -73,16 +73,13 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 						
 						<Box display='flex' justifyContent='flex-end' width='100%'>
 							<IconButton onClick={toggleTheme} size='small'>
-								<Brightness4 />
+								<Brightness4 sx={smDown? {width: '1.5rem', height: '1rem'} : {width: '1rem', height: '1rem'}}/>
 							</IconButton>
 							{smDown &&
 								<IconButton size='small'>
-									<KeyboardArrowLeftIcon onClick={toggleDrawerOpen}/>
+									<KeyboardArrowLeftIcon onClick={toggleDrawerOpen} />
 								</IconButton>
 							}
-						</Box>
-						<Box width='100%' marginY={1} >
-							<Divider />
 						</Box>
 						<Box display='flex' alignItems='center' flexDirection='row' gap={1}>
 							<Avatar
