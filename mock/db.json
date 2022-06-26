@@ -1,3 +1,9 @@
 {
-    "possoas": []
+    "pessoas": [
+        {
+            "id": 1,
+            "name": "Marcelo Silva",
+            "email": "marcel@mail.com"
+        }
+    ]
 }

@@ -81,7 +81,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 								</IconButton>
 							}
 						</Box>
-						<Box display='flex' alignItems='center' flexDirection='row' gap={1}>
+						<Box display='flex' alignItems='center' flexDirection='column' gap={1}>
 							<Avatar
 								sx={{ width: theme.spacing(7), height: theme.spacing(7) }}
 								src={ImageProfile}
@@ -89,7 +89,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 							<Typography variant='caption'>Marcelo Silva</Typography>
 						</Box>
 					</Box>
-					<Divider />
+					<Divider sx={{marginY: '3px'}}/>
 					<Box flex='1' >
 						<List component='nav'>
 							{drawerOptions.map((item, index) => (
