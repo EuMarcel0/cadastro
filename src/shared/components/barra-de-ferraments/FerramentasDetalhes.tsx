@@ -1,6 +1,6 @@
-import { Box, Button, Divider, Icon, Paper, useTheme } from "@mui/material";
+import { Box, Button, Icon, Paper, Skeleton, useMediaQuery, useTheme } from "@mui/material";
 
-interface IFerramentasDetalhesProps {
+export interface IFerramentasDetalhesProps {
     textButtonNew?: string;
 
     showButtonNew?: boolean;
@@ -8,6 +8,12 @@ interface IFerramentasDetalhesProps {
     showButtonDelete?: boolean;
     showButtonSave?: boolean;
     showButtonSaveAndBack?: boolean;
+
+    showButtonNewLoading?: boolean;
+    showButtonBackLoading?: boolean;
+    showButtonDeleteLoading?: boolean;
+    showButtonSaveLoading?: boolean;
+    showButtonSaveAndBackLoading?: boolean;
 
     onClickInNew?: () => void;
     onClickInBack?: () => void;
@@ -24,6 +30,12 @@ export const FerramentasDetalhes = ({
     showButtonSave = true,
     showButtonSaveAndBack = false,
 
+    showButtonNewLoading = false,
+    showButtonBackLoading = false,
+    showButtonDeleteLoading = false,
+    showButtonSaveLoading = false,
+    showButtonSaveAndBackLoading = false,
+
     onClickInNew,
     onClickInBack,
     onClickInDelete,
@@ -32,6 +44,8 @@ export const FerramentasDetalhes = ({
 
 }: IFerramentasDetalhesProps) => {
     const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+    const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <Box
@@ -46,10 +60,9 @@ export const FerramentasDetalhes = ({
             marginY={1}
             gap={1}
         >
-
-            {showButtonSave &&
+            {(showButtonSave && !showButtonSaveLoading) &&
                 <Button
-                    sx={{borderRadius: 0}}
+                    sx={{ borderRadius: 0 }}
                     variant='contained'
                     startIcon={<Icon>save</Icon>}
                     size="small"
@@ -58,20 +71,36 @@ export const FerramentasDetalhes = ({
                     Salvar
                 </Button>
             }
-            {showButtonSaveAndBack &&
+            {showButtonSaveLoading &&
+                <Skeleton
+                    sx={{ borderRadius: '0' }}
+                    animation='wave'
+                    width='110px'
+                    height='59px'
+                />
+            }
+            {(showButtonSaveAndBack && !showButtonSaveAndBackLoading && !smDown && !mdDown) &&
                 <Button
-                    sx={{borderRadius: 0}}
+                    sx={{ borderRadius: 0 }}
                     variant='contained'
-                    startIcon={<Icon>save</Icon>}
+                    startIcon={<Icon>save_as</Icon>}
                     size="small"
                     onClick={onClickInSaveAndBack}
                 >
                     Salvar e voltar
                 </Button>
             }
-            {showButtonDelete &&
+            {(showButtonSaveAndBackLoading && !smDown && !mdDown) &&
+                <Skeleton
+                    sx={{ borderRadius: '0' }}
+                    animation='wave'
+                    width='180px'
+                    height='59px'
+                />
+            }
+            {(showButtonDelete && !showButtonDeleteLoading) &&
                 <Button
-                    sx={{borderRadius: 0}}
+                    sx={{ borderRadius: 0 }}
                     variant='contained'
                     startIcon={<Icon>delete</Icon>}
                     size="small"
@@ -80,9 +109,17 @@ export const FerramentasDetalhes = ({
                     Apagar
                 </Button>
             }
-            {showButtonNew &&
+            {showButtonDeleteLoading &&
+                <Skeleton
+                    sx={{ borderRadius: '0' }}
+                    animation='wave'
+                    width='110px'
+                    height='59px'
+                />
+            }
+            {(showButtonNew && !showButtonNewLoading && !smDown) &&
                 <Button
-                    sx={{borderRadius: 0}}
+                    sx={{ borderRadius: 0 }}
                     variant='contained'
                     startIcon={<Icon>add</Icon>}
                     size="small"
@@ -91,10 +128,18 @@ export const FerramentasDetalhes = ({
                     {textButtonNew}
                 </Button>
             }
-            {showButtonBack &&
+            {(showButtonNewLoading && !smDown) &&
+                <Skeleton
+                    sx={{ borderRadius: '0' }}
+                    animation='wave'
+                    width='110px'
+                    height='59px'
+                />
+            }
+            {(showButtonBack && !showButtonBackLoading) &&
                 <Box display='flex' flex={1} justifyContent='end'>
                     <Button
-                        sx={{borderRadius: 0}}
+                        sx={{ borderRadius: 0 }}
                         variant='contained'
                         startIcon={<Icon>arrow_back</Icon>}
                         size="small"
@@ -102,6 +147,16 @@ export const FerramentasDetalhes = ({
                     >
                         Voltar
                     </Button>
+                </Box>
+            }
+            {showButtonBackLoading &&
+                <Box display='flex' flex={1} justifyContent='end'>
+                    <Skeleton
+                        sx={{ borderRadius: '0' }}
+                        animation='wave'
+                        width='110px'
+                        height='59px'
+                    />
                 </Box>
             }
         </Box>
