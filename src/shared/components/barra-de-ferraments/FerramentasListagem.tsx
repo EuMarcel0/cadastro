@@ -38,7 +38,6 @@ export const FerramentasListagem= ({
         >
             {showInputSearch &&
                 <TextField
-                    sx={{backgroundColor: '#FFF', borderRadius: 1}}
                     id='standard-basic'
                     label={Environment.PLACEHOLDER_INPUTS_OF_SEARCH}
                     size="small"

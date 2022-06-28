@@ -3,12 +3,13 @@ import { ReactNode } from "react";
 import { useDrawerContext } from "../contexts";
 
 interface ILayoutBaseDePaginaProps{
+    icon: ReactNode;
     title: string;
     toolbar: ReactNode | undefined;
     children: ReactNode;
 }
 
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps>= ({ children, title, toolbar }) => {
+export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps>= ({ children, icon, title, toolbar }) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
     const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -23,6 +24,7 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps>= ({ children
                         <Icon>menu</Icon>
                     </IconButton>
                 }
+                <Icon>{icon}</Icon>
                 <Typography
                     overflow='hidden'
                     whiteSpace='nowrap'
