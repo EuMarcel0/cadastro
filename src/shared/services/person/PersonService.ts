@@ -103,5 +103,3 @@ export const PeopleService = {
     updateById,
     deleteById,
 };
-
-PeopleService.getAll
