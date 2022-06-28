@@ -101,5 +101,5 @@ export const PeopleService = {
     getById,
     create,
     updateById,
-    deleteById,
+    deleteById
 };
