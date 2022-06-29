@@ -27,7 +27,7 @@ export const ListagemPessoas: React.FC = () => {
 
     return(
         <LayoutBaseDePagina
-            icon={<Typography><Icon>person</Icon></Typography>} 
+            icon={<Typography><Icon>people</Icon></Typography>} 
             title='Listagem de pessoas'
             toolbar={<FerramentasListagem
                         showInputSearch
