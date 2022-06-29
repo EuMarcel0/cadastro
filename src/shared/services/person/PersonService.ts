@@ -25,7 +25,7 @@ type TPepleWithTotalCountProps = {
  * PT_BR: Traz todos os itens na listagem com total de registros
 */
 const getAll = async ( page = 1, filter = '' ) : Promise<TPepleWithTotalCountProps | Error> => {
-    const relativeURL = `/pessoas?_page=${page}&_limit${Environment.LIMIT_OF_ROWS_PER_PAGE}&nomeCompleto_like=${filter}`;
+    const relativeURL = `/pessoas?_page=${page}&_limit${Environment.LIMIT_OF_ROWS_PER_PAGE}&fullName_like=${filter}`;
     try{
         const { data, headers } = await Api.get(relativeURL) 
         
@@ -96,7 +96,7 @@ const deleteById = async (id: number) : Promise<void | Error> => {
 };
 
 
-export const PeopleService = {
+export const PersonService = {
     getAll,
     getById,
     create,

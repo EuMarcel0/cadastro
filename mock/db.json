@@ -2,8 +2,9 @@
     "pessoas": [
         {
             "id": 1,
-            "name": "Marcelo Silva",
-            "email": "marcel@mail.com"
+            "email": "marcelo@gmail.com",
+            "cityId": 1,
+            "fullName": "Marcelo Silva"
         }
     ]
 }

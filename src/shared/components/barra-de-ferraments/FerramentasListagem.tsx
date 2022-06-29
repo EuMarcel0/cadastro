@@ -1,11 +1,11 @@
-import { Box, Button, Icon, Paper, TextField, useTheme } from "@mui/material";
+import { Box, Button, Icon, Paper, TextField, Typography, useTheme } from "@mui/material";
 import { Environment } from "../../environment";
 
 interface IFerramentasListagemProps {
     textOfSearch?: string;
     showInputSearch?: boolean;
     handleTextOfSearch?: (newText: string) => void;
-
+    handleInputClear: () => void;
     textButtonNew?: string;
     showButtonNew?: boolean;
     onClickButtonNew?: () => void;
@@ -18,10 +18,12 @@ export const FerramentasListagem= ({
     handleTextOfSearch,
     textButtonNew = 'Novo',
     showButtonNew = true,
-    onClickButtonNew
+    onClickButtonNew,
+    handleInputClear
 } : IFerramentasListagemProps) => {
 
     const theme = useTheme();
+
 
     return(
         <Box
@@ -45,6 +47,11 @@ export const FerramentasListagem= ({
                     value={textOfSearch}
                     onChange={(e) => handleTextOfSearch?.(e.target.value)}
                 />
+            }
+            {textOfSearch.length > 0 &&
+                <Button onClick={handleInputClear} variant='contained' sx={{ borderRadius: '0'}}>
+                    <Typography textTransform='capitalize'>Limpar</Typography>
+                </Button>
             }
             {showButtonNew &&
                 <Box display='flex' justifyContent='end' flex={1}>
