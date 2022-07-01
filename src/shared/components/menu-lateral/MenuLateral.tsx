@@ -1,36 +1,37 @@
-import ImageProfile from '../../../assets/images/perfil.png';
-
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button, IconButton } from '@mui/material';
+import { ReactNode } from 'react';
+import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { Brightness4 } from '@mui/icons-material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { ReactNode } from 'react';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button, IconButton } from '@mui/material';
+
+
+import ImageProfile from '../../../assets/images/perfil.png';
 import { useDrawerContext, useAppThemeContext } from '../../contexts';
-import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 interface iMenuLateral {
-    children: ReactNode;
+	children: ReactNode;
 }
 
-interface IListItemLinkProps{
+interface IListItemLinkProps {
 	to: string;
 	icon: string;
 	label: string;
 	handleOnClick: (() => void) | undefined;
-    children: ReactNode;
+	children: ReactNode;
 }
 
-const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClick, children}) => {
+const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, handleOnClick, children }) => {
 	const navigate = useNavigate();
 
 	const resolvedPath = useResolvedPath(to);
-	const matchPath = useMatch({path:resolvedPath.pathname, end: false });
+	const matchPath = useMatch({ path: resolvedPath.pathname, end: false });
 
 	const handleNavigateClick = () => {
 		navigate(to);
 		handleOnClick?.();
 	};
 
-	return(
+	return (
 		<ListItemButton selected={!!matchPath} onClick={handleNavigateClick}>
 			<ListItemIcon>
 				<Icon>{icon}</Icon>
@@ -42,18 +43,18 @@ const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClic
 			</ListItemText>
 		</ListItemButton>
 	);
-};	
+};
 
 export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
-	const {isDrawerOpen, drawerOptions, toggleDrawerOpen} = useDrawerContext();
-	const {toggleTheme} = useAppThemeContext();
+	const { isDrawerOpen, drawerOptions, toggleDrawerOpen } = useDrawerContext();
+	const { toggleTheme } = useAppThemeContext();
 
 	return (
 		<Box>
-			<Drawer open={isDrawerOpen} variant={smDown? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
+			<Drawer open={isDrawerOpen} variant={smDown ? 'temporary' : 'permanent'} onClose={toggleDrawerOpen}>
 				<Box
 					width={theme.spacing(28)}
 					height='100%'
@@ -68,12 +69,12 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
-						justifyContent={smDown? 'flex-start' : 'center'}				
+						justifyContent={smDown ? 'flex-start' : 'center'}
 					>
-						
+
 						<Box display='flex' justifyContent='flex-end' width='100%'>
 							<IconButton onClick={toggleTheme} size='small'>
-								<Brightness4 sx={smDown? {width: '1.5rem', height: '1rem'} : {width: '1rem', height: '1rem'}}/>
+								<Brightness4 sx={smDown ? { width: '1.5rem', height: '1rem' } : { width: '1rem', height: '1rem' }} />
 							</IconButton>
 							{smDown &&
 								<IconButton size='small'>
@@ -89,7 +90,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 							<Typography variant='caption'>Marcelo Silva</Typography>
 						</Box>
 					</Box>
-					<Divider sx={{marginY: '3px'}}/>
+					<Divider sx={{ marginY: '3px' }} />
 					<Box flex='1' >
 						<List component='nav'>
 							{drawerOptions.map((item, index) => (
@@ -97,7 +98,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 									to={item.path}
 									label={item.label}
 									icon={item.icon}
-									handleOnClick={ smDown? toggleDrawerOpen : undefined }
+									handleOnClick={smDown ? toggleDrawerOpen : undefined}
 								>
 								</ListItemLink>
 							))}
@@ -107,7 +108,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 			</Drawer>
 			<Box
 				height='100vh'
-				marginLeft={ smDown? theme.spacing(0): theme.spacing(28)}
+				marginLeft={smDown ? theme.spacing(0) : theme.spacing(28)}
 			>
 				{children}
 			</Box>

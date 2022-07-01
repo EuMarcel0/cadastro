@@ -5,10 +5,10 @@ interface IDrawerContextData {
 	isDrawerOpen: boolean;
 	toggleDrawerOpen: () => void;
 	drawerOptions: IDrawerOptionsProps[];
-	setDrawerOptions: (newDrawerOptions : IDrawerOptionsProps[]) => void;
+	setDrawerOptions: (newDrawerOptions: IDrawerOptionsProps[]) => void;
 }
 
-interface IDrawerOptionsProps{
+interface IDrawerOptionsProps {
 	icon: string;
 	label: string;
 	path: string;
@@ -32,7 +32,7 @@ export const AppDrawerProvider: React.FC<IAppThemeProvider> = ({ children }) => 
 		setIsDrawerOpen(oldDrawerOpen => !oldDrawerOpen);
 	}, []);
 
-	const handleSetDrawerOptions = useCallback((newDrawerOptions : IDrawerOptionsProps[]) => {
+	const handleSetDrawerOptions = useCallback((newDrawerOptions: IDrawerOptionsProps[]) => {
 		setDrawerOptions(newDrawerOptions);
 	}, []);
 
