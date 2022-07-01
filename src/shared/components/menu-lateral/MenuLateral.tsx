@@ -9,7 +9,7 @@ import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 
 interface iMenuLateral {
     children: ReactNode;
-};
+}
 
 interface IListItemLinkProps{
 	to: string;
@@ -28,7 +28,7 @@ const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClic
 	const handleNavigateClick = () => {
 		navigate(to);
 		handleOnClick?.();
-	}
+	};
 
 	return(
 		<ListItemButton selected={!!matchPath} onClick={handleNavigateClick}>
@@ -41,13 +41,13 @@ const ListItemLink:React.FC<IListItemLinkProps>= ({to, icon, label, handleOnClic
 				</Typography>
 			</ListItemText>
 		</ListItemButton>
-	)
+	);
 };	
 
 export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 
-    const theme = useTheme();
-    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const {isDrawerOpen, drawerOptions, toggleDrawerOpen} = useDrawerContext();
 	const {toggleTheme} = useAppThemeContext();
 
@@ -106,9 +106,9 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 				</Box>
 			</Drawer>
 			<Box
-                height='100vh'
-                marginLeft={ smDown? theme.spacing(0): theme.spacing(28)}
-            >
+				height='100vh'
+				marginLeft={ smDown? theme.spacing(0): theme.spacing(28)}
+			>
 				{children}
 			</Box>
 		</Box>
