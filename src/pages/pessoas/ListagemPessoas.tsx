@@ -6,6 +6,7 @@ import { Icon, Typography } from '@mui/material';
 import { PersonService } from '../../shared/services/person/PersonService';
 import { FerramentasListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
+import { DetalhesPessoas } from './DetalhesPessoas';
 
 export const ListagemPessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams('');
@@ -39,6 +40,7 @@ export const ListagemPessoas: React.FC = () => {
 			}
 
 		>
+			<DetalhesPessoas />
 		</LayoutBaseDePagina>
 	);
 };
