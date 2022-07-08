@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { TextField, TextFieldProps } from '@mui/material';
+import { Box, TextField, TextFieldProps } from '@mui/material';
 import { useField } from '@unform/core';
 
 type IUnformInputTextProps = TextFieldProps & {
@@ -20,13 +20,16 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 	}, [fieldName, value, registerField]);
 
 	return (
-		<TextField
-			{...rest}
-			value={value}
-			label='Digite...'
-			onChange={(e) => setValue(e.target.value)}
-			defaultValue={defaultValue}
-			error={!!error}
-		/>
+		<Box>
+			<TextField
+				{...rest}
+				value={value}
+				label='Digite...'
+				onChange={(e) => setValue(e.target.value)}
+				defaultValue={defaultValue}
+				error={!!error}
+				variant='outlined'
+			/>
+		</Box>
 	);
 };
