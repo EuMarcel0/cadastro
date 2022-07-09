@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
-import { Box, Icon, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Divider, Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 import { IlistingPeopleProps, PersonService } from '../../shared/services/person/PersonService';
 import { FerramentasListagem } from '../../shared/components';
@@ -14,15 +14,18 @@ export const ListagemPessoas: React.FC = () => {
 	const [people, setPeople] = useState<IlistingPeopleProps[]>([]);
 	const [totalCount, setTotalCount] = useState(0);
 	const { debounce } = useDebounce(1000);
+	const [loading, setLoading] = useState(true);
 
 	const search = useMemo(() => {
 		return searchParams.get('busca') || '';
 	}, [searchParams]);
 
 	useEffect(() => {
+		setLoading(true);
 		debounce(() => {
 			PersonService.getAll(1, search)
 				.then((response) => {
+					setLoading(false);
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
@@ -38,6 +41,7 @@ export const ListagemPessoas: React.FC = () => {
 		<LayoutBaseDePagina
 			icon={<Typography><Icon>people</Icon></Typography>}
 			title='Listagem de pessoas'
+			totalCount={`Total de registros: ${totalCount}`}
 			toolbar={<FerramentasListagem
 				showInputSearch
 				textButtonNew='Nova'
@@ -50,15 +54,20 @@ export const ListagemPessoas: React.FC = () => {
 		>
 			<Box component={Paper} elevation={6} width='auto'>
 				<TableContainer>
+					{loading &&
+						<LinearProgress />
+					}
 					<Table>
-						<TableHead>
-							<TableRow>
-								<TableCell>Nome completo</TableCell>
-								<TableCell>E-mail</TableCell>
-								<TableCell>Cód Cidade</TableCell>
-								<TableCell>Ações</TableCell>
-							</TableRow>
-						</TableHead>
+						{!loading &&
+							<TableHead>
+								<TableRow>
+									<TableCell>Nome completo</TableCell>
+									<TableCell>E-mail</TableCell>
+									<TableCell>Cód Cidade</TableCell>
+									<TableCell>Ações</TableCell>
+								</TableRow>
+							</TableHead>
+						}
 						<TableBody>
 							{people.map((item) => (
 								<TableRow key={item.id}>
