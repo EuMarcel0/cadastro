@@ -1,7 +1,6 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef } from 'react';
 
 export const useDebounce = (delay = 1500) => {
-
 	const debouncing = useRef<number>();
 	const isFirstTime = useRef(true);
 
@@ -13,9 +12,10 @@ export const useDebounce = (delay = 1500) => {
 			if(debouncing.current){
 				clearTimeout(debouncing.current);
 			}
-			debouncing.current = setTimeout( () => func(), delay);
+			debouncing.current = setTimeout(() => func(), delay);
 		}
+
 	}, [delay]);
 
-	return {debounce};
+	return{debounce};
 };
