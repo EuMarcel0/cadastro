@@ -21,6 +21,10 @@ export const ListagemPessoas: React.FC = () => {
 		return searchParams.get('busca') || '';
 	}, [searchParams]);
 
+	const page = useMemo(() => {
+		return Number(searchParams.get('pagina') || '1');
+	}, [searchParams]);
+
 	useEffect(() => {
 		setLoading(true);
 		debounce(() => {
@@ -36,7 +40,7 @@ export const ListagemPessoas: React.FC = () => {
 					}
 				});
 		});
-	}, [search]);
+	}, [search, page]);
 
 	return (
 		<LayoutBaseDePagina
@@ -47,7 +51,7 @@ export const ListagemPessoas: React.FC = () => {
 				showInputSearch
 				textButtonNew='Nova'
 				textOfSearch={search}
-				handleTextOfSearch={text => setSearchParams({ busca: text }, { replace: true })}
+				handleTextOfSearch={text => setSearchParams({ busca: text, pagina: '1' }, { replace: true })}
 				handleInputClear={() => setSearchParams('')}
 			/>
 			}
@@ -95,7 +99,11 @@ export const ListagemPessoas: React.FC = () => {
 							{totalCount > 0 && totalCount > Environment.LIMIT_OF_ROWS_PER_PAGE &&
 								<TableRow>
 									<TableCell colSpan={3}>
-										<Pagination count={10} />
+										<Pagination
+											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROWS_PER_PAGE)}
+											page={page}
+											onChange={(_, newPage) => setSearchParams({ pagina: newPage.toString() }, { replace: true })}
+										/>
 									</TableCell>
 								</TableRow>
 							}
