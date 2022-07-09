@@ -25,14 +25,14 @@ type TPepleWithTotalCountProps = {
  * PT_BR: Traz todos os itens na listagem com total de registros
 */
 const getAll = async ( page = 1, filter = '' ) : Promise<TPepleWithTotalCountProps | Error> => {
-	const relativeURL = `/pessoas?_page=${page}&_limit${Environment.LIMIT_OF_ROWS_PER_PAGE}&fullName_like=${filter}`;
+	const relativeURL = `/pessoas?_page=${page}&_limit=${Environment.LIMIT_OF_ROWS_PER_PAGE}&fullName_like=${filter}`;
 	try{
 		const { data, headers } = await Api.get(relativeURL);
 
 		if( data ){
 			return {
 				data,
-				totalCount: Number(headers['X-Total-Count'] || Environment.LIMIT_OF_ROWS_PER_PAGE)
+				totalCount: Number(headers['x-total-count'] || Environment.LIMIT_OF_ROWS_PER_PAGE)
 			};
 		}
 		return new Error('Erro ao consultar os registros');
@@ -47,7 +47,7 @@ const getAll = async ( page = 1, filter = '' ) : Promise<TPepleWithTotalCountPro
 */
 const getById = async (id: number ) : Promise<IDetailsPeopleProps | Error> => {
 	try{
-		const { data } = await Api.get(`/pessoas${id}`);
+		const { data } = await Api.get(`/pessoas/${id}`);
 
 		if( data ){
 			return data;
@@ -79,7 +79,7 @@ const create = async (dataPeople: Omit<IDetailsPeopleProps, 'id'>) : Promise<num
 */
 const updateById = async (id: number, dataPeople: IDetailsPeopleProps) : Promise<void | Error> => {
 	try{
-		await Api.put(`/pessoas${id}`, dataPeople);
+		await Api.put(`/pessoas/${id}`, dataPeople);
 	}catch( error ){
 		return new Error((error as { message: string }).message || 'Erro ao alterar o registro');
 	}
@@ -89,7 +89,7 @@ const updateById = async (id: number, dataPeople: IDetailsPeopleProps) : Promise
 */
 const deleteById = async (id: number) : Promise<void | Error> => {
 	try{
-		await Api.delete(`/pessoas${id}`);
+		await Api.delete(`/pessoas/${id}`);
 	}catch( error ){
 		return new Error((error as { message: string }).message || 'Erro ao deletar o registro');
 	}

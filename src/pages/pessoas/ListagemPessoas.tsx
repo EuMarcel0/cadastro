@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
-import { Box, Divider, Icon, IconButton, LinearProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
 
 import { IlistingPeopleProps, PersonService } from '../../shared/services/person/PersonService';
 import { FerramentasListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
+import { Environment } from '../../shared/environment';
 
 
 export const ListagemPessoas: React.FC = () => {
@@ -29,7 +30,7 @@ export const ListagemPessoas: React.FC = () => {
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
-						console.log(response);
+						console.log(response.totalCount);
 						setPeople(response.data);
 						setTotalCount(response.totalCount);
 					}
@@ -41,7 +42,7 @@ export const ListagemPessoas: React.FC = () => {
 		<LayoutBaseDePagina
 			icon={<Typography><Icon>people</Icon></Typography>}
 			title='Listagem de pessoas'
-			totalCount={`Total de registros: ${totalCount}`}
+			totalCount={`Total de registros encontrados: ${people.length}`}
 			toolbar={<FerramentasListagem
 				showInputSearch
 				textButtonNew='Nova'
@@ -58,22 +59,25 @@ export const ListagemPessoas: React.FC = () => {
 						<LinearProgress />
 					}
 					<Table>
-						{!loading &&
+						{people.length > 0 &&
 							<TableHead>
 								<TableRow>
 									<TableCell>Nome completo</TableCell>
 									<TableCell>E-mail</TableCell>
-									<TableCell>Cód Cidade</TableCell>
 									<TableCell>Ações</TableCell>
 								</TableRow>
 							</TableHead>
+						}
+						{!loading && totalCount === 0 &&
+							<TableRow>
+								<TableCell>{Environment.LISTING_EMPTY}</TableCell>
+							</TableRow>
 						}
 						<TableBody>
 							{people.map((item) => (
 								<TableRow key={item.id}>
 									<TableCell>{item.fullName}</TableCell>
 									<TableCell>{item.email}</TableCell>
-									<TableCell>{item.cityId}</TableCell>
 									<TableCell padding='none'>
 										<Box display='flex'>
 											<IconButton>
@@ -87,6 +91,15 @@ export const ListagemPessoas: React.FC = () => {
 								</TableRow>
 							))}
 						</TableBody>
+						<TableFooter>
+							{totalCount > 0 && totalCount > Environment.LIMIT_OF_ROWS_PER_PAGE &&
+								<TableRow>
+									<TableCell colSpan={3}>
+										<Pagination count={10} />
+									</TableCell>
+								</TableRow>
+							}
+						</TableFooter>
 					</Table>
 				</TableContainer>
 			</Box>
