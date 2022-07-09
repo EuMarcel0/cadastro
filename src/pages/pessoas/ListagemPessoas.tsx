@@ -6,24 +6,27 @@ import { Icon, Typography } from '@mui/material';
 import { PersonService } from '../../shared/services/person/PersonService';
 import { FerramentasListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
-import { DetalhesPessoas } from './DetalhesPessoas';
+import { useDebounce } from '../../shared/hooks';
 
 export const ListagemPessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams('');
+	const { debounce } = useDebounce(1000);
 
 	const search = useMemo(() => {
 		return searchParams.get('busca') || '';
 	}, [searchParams]);
 
 	useEffect(() => {
-		PersonService.getAll(1, search)
-			.then((response) => {
-				if (response instanceof Error) {
-					alert(response.message);
-				} else {
-					console.log(response);
-				}
-			});
+		debounce(() => {
+			PersonService.getAll(1, search)
+				.then((response) => {
+					if (response instanceof Error) {
+						alert(response.message);
+					} else {
+						console.log(response);
+					}
+				});
+		});
 	}, [search]);
 
 	return (
@@ -40,7 +43,6 @@ export const ListagemPessoas: React.FC = () => {
 			}
 
 		>
-			<DetalhesPessoas />
 		</LayoutBaseDePagina>
 	);
 };

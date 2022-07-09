@@ -17,6 +17,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 			getValue: () => value,
 			setValue: (_, newValue) => setValue(newValue),
 		});
+		console.log(value);
 	}, [fieldName, value, registerField]);
 
 	return (

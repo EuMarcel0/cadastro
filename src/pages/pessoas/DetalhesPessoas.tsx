@@ -1,10 +1,17 @@
 import { Form } from '@unform/web';
-import { UnformInputText } from '../../shared/components';
+import { FerramentasDetalhes, UnformInputText } from '../../shared/components';
+import { LayoutBaseDePagina } from '../../shared/layouts';
 
 export const DetalhesPessoas: React.FC = () => {
 	return (
-		<Form onSubmit={() => console.log('Enviou')}>
-			<UnformInputText name='teste' />
-		</Form>
+		<LayoutBaseDePagina
+			title='Editando Pessoa'
+			icon='people-edit'
+			toolbar={<FerramentasDetalhes />}
+		>
+			<Form onSubmit={() => console.log('Enviou os dados')}>
+				<UnformInputText name='email' />
+			</Form>
+		</LayoutBaseDePagina>
 	);
 };
