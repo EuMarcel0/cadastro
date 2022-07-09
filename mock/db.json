@@ -28,12 +28,6 @@
             "id": 5,
             "email": "marcelo@gmail.com",
             "cityId": 1,
-            "fullName": "Marcelo Silva 4"
-        },
-        {
-            "id": 5,
-            "email": "marcelo@gmail.com",
-            "cityId": 1,
             "fullName": "Marcelo Silva 5"
         },
         {
@@ -59,6 +53,18 @@
             "email": "antonio@gmail.com",
             "cityId": 1,
             "fullName": "Antonio Souza"
+        },
+        {
+            "id": 11,
+            "email": "osiel@gmail.com",
+            "cityId": 1,
+            "fullName": "Osiel Pedrini"
+        },
+        {
+            "id": 12,
+            "email": "maria@gmail.com",
+            "cityId": 1,
+            "fullName": "Maria Jurema"
         }
     ]
 }

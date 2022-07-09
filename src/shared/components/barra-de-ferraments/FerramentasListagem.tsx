@@ -37,6 +37,7 @@ export const FerramentasListagem = ({
 			marginX={0}
 			marginY={1}
 			gap={1}
+			elevation={6}
 		>
 			{showInputSearch &&
 				<TextField
@@ -49,8 +50,16 @@ export const FerramentasListagem = ({
 				/>
 			}
 			{textOfSearch.length > 0 &&
-				<Button onClick={handleInputClear} variant='contained' sx={{ borderRadius: '0' }}>
-					<Typography textTransform='capitalize'>Limpar</Typography>
+				<Button
+					startIcon={<Icon>clear</Icon>}
+					onClick={handleInputClear}
+					size='small'
+					variant='contained'
+					sx={{ borderRadius: '0' }}
+				>
+					<Typography textTransform='capitalize'>
+						Limpar
+					</Typography>
 				</Button>
 			}
 			{showButtonNew &&
