@@ -100,9 +100,9 @@ export const ListagemPessoas: React.FC = () => {
 								<TableRow>
 									<TableCell colSpan={3}>
 										<Pagination
-											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROWS_PER_PAGE)}
 											page={page}
-											onChange={(_, newPage) => setSearchParams({ pagina: newPage.toString() }, { replace: true })}
+											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROWS_PER_PAGE)}
+											onChange={(_, newPage) => setSearchParams({ busca, pagina: newPage.toString() }, { replace: true })}
 										/>
 									</TableCell>
 								</TableRow>
