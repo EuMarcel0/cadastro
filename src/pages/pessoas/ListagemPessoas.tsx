@@ -28,13 +28,14 @@ export const ListagemPessoas: React.FC = () => {
 	useEffect(() => {
 		setLoading(true);
 		debounce(() => {
-			PersonService.getAll(1, search)
+			PersonService.getAll(page, search)
 				.then((response) => {
 					setLoading(false);
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
 						console.log(response.totalCount);
+						console.log(response.data);
 						setPeople(response.data);
 						setTotalCount(response.totalCount);
 					}
@@ -46,7 +47,7 @@ export const ListagemPessoas: React.FC = () => {
 		<LayoutBaseDePagina
 			icon={<Typography><Icon>people</Icon></Typography>}
 			title='Listagem de pessoas'
-			totalCount={`Total de registros encontrados: ${people.length}`}
+			totalCount={`Total de registros encontrados: ${totalCount}`}
 			toolbar={<FerramentasListagem
 				showInputSearch
 				textButtonNew='Nova'
@@ -102,7 +103,7 @@ export const ListagemPessoas: React.FC = () => {
 										<Pagination
 											page={page}
 											count={Math.ceil(totalCount / Environment.LIMIT_OF_ROWS_PER_PAGE)}
-											onChange={(_, newPage) => setSearchParams({ busca, pagina: newPage.toString() }, { replace: true })}
+											onChange={(_, newPage) => setSearchParams({ pagina: newPage.toString() }, { replace: true })}
 										/>
 									</TableCell>
 								</TableRow>
