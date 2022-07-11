@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
 
 import { IlistingPeopleProps, PersonService } from '../../shared/services/person/PersonService';
-import { FerramentasListagem } from '../../shared/components';
+import { ConfirmModal, FerramentasListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
 import { Environment } from '../../shared/environment';
@@ -13,9 +13,11 @@ import { Environment } from '../../shared/environment';
 export const ListagemPessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams('');
 	const [people, setPeople] = useState<IlistingPeopleProps[]>([]);
+	const [modalOpen, setModalOpen] = useState(false);
 	const [totalCount, setTotalCount] = useState(0);
 	const { debounce } = useDebounce(1000);
 	const [loading, setLoading] = useState(true);
+	const navigate = useNavigate();
 
 	const search = useMemo(() => {
 		return searchParams.get('busca') || '';
@@ -42,6 +44,19 @@ export const ListagemPessoas: React.FC = () => {
 				});
 		});
 	}, [search, page]);
+
+	const handleDeletePeople = (id: number) => {
+		PersonService.deleteById(id)
+			.then((response) => {
+				if (response instanceof Error) {
+					alert(response.message);
+				}
+			});
+	};
+
+	const handleModalDelete = () => {
+		setModalOpen(true);
+	};
 
 	return (
 		<LayoutBaseDePagina
@@ -85,12 +100,10 @@ export const ListagemPessoas: React.FC = () => {
 									<TableCell>{item.email}</TableCell>
 									<TableCell padding='none'>
 										<Box display='flex'>
-											<IconButton>
+											<IconButton onClick={() => navigate(`/pessoas/detalhe/${item.id}`)}>
 												<Icon>edit</Icon>
 											</IconButton>
-											<IconButton>
-												<Icon>delete</Icon>
-											</IconButton>
+											<ConfirmModal handleDelete={() => handleDeletePeople(item.id)} />
 										</Box>
 									</TableCell>
 								</TableRow>
