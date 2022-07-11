@@ -13,7 +13,6 @@ import { Environment } from '../../shared/environment';
 export const ListagemPessoas: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams('');
 	const [people, setPeople] = useState<IlistingPeopleProps[]>([]);
-	const [modalOpen, setModalOpen] = useState(false);
 	const [totalCount, setTotalCount] = useState(0);
 	const { debounce } = useDebounce(1000);
 	const [loading, setLoading] = useState(true);
@@ -52,11 +51,9 @@ export const ListagemPessoas: React.FC = () => {
 					alert(response.message);
 				}
 			});
+		window.location.reload();
 	};
 
-	const handleModalDelete = () => {
-		setModalOpen(true);
-	};
 
 	return (
 		<LayoutBaseDePagina

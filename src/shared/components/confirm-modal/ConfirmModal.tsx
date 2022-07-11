@@ -22,7 +22,6 @@ export const ConfirmModal: React.FC<IConfirmModal> = ({ handleDelete }) => {
 	const handleClose = () => {
 		setOpen(false);
 	};
-
 	return (
 		<Box>
 			<IconButton onClick={handleClickOpen}>
@@ -40,12 +39,15 @@ export const ConfirmModal: React.FC<IConfirmModal> = ({ handleDelete }) => {
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
 						Depois que deletar este registro, o mesmo não poderá ser restaurado ou reutilizado.
-						Deseja prosseguir com a operação com sua total responsabilidade?
+						Deseja prosseguir com a operação, em sua total responsabilidade?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose}>Abortar</Button>
-					<Button onClick={handleDelete} autoFocus>
+					<Button onClick={handleClose} variant='outlined'>Abortar</Button>
+					<Button onClick={handleDelete}
+						variant='contained'
+						autoFocus
+					>
 						Deletar
 					</Button>
 				</DialogActions>

@@ -25,11 +25,11 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 			<TextField
 				{...rest}
 				value={value}
-				label='Digite...'
 				onChange={(e) => setValue(e.target.value)}
 				defaultValue={defaultValue}
 				error={!!error}
 				variant='outlined'
+				sx={{ my: '10px' }}
 			/>
 		</Box>
 	);
