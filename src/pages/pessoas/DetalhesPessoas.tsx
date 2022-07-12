@@ -2,7 +2,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FerramentasDetalhes, UnformInputText } from '../../shared/components';
+import { ConfirmModalSave, FerramentasDetalhes, UnformInputText } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PersonService } from '../../shared/services/person/PersonService';
 
@@ -18,6 +18,7 @@ export const DetalhesPessoas: React.FC = () => {
 	const unformRef = useRef<FormHandles>(null);
 	const [name, setName] = useState('');
 	const [loading, setLoaging] = useState(false);
+	const [modalSaving, setModalSaving] = useState(false);
 
 	useEffect(() => {
 		if (id !== 'nova') {
@@ -40,7 +41,7 @@ export const DetalhesPessoas: React.FC = () => {
 		}
 	}, [id]);
 
-	const handleSave = (data: IFormProps,) => {
+	const handleSave = (data: IFormProps) => {
 		setLoaging(true);
 		if (id === 'nova') {
 			PersonService.create(data)
@@ -49,7 +50,6 @@ export const DetalhesPessoas: React.FC = () => {
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
-						alert('OK');
 						navigate(`/pessoas/detalhe/${response}`);
 					}
 				});
@@ -59,26 +59,27 @@ export const DetalhesPessoas: React.FC = () => {
 					if (response instanceof Error) {
 						alert(response.message);
 					}
-					alert('Registro alterado com sucesso');
+					// alert('Registro alterado com sucesso');
 					navigate('/pessoas');
 				});
 
 		}
 	};
 
-	const handleClickInNew = () => {
-		navigate('/pessoas/detalhe/nova');
+	const handleSaveData = (data: IFormProps) => {
+		setModalSaving(true);
+		handleSave(data);
 	};
 
 	return (
 		<LayoutBaseDePagina
-			title={id === 'nova' ? 'Cadastrando uma nova pessoa' : `Editando ${name}`}
+			title={id === 'nova' ? 'Novo cadastro de pessoa' : `Editando ${name}`}
 			icon='people-edit'
 			toolbar={<FerramentasDetalhes
 				onClickInBack={() => navigate('/pessoas')}
 				onClickInSave={() => unformRef.current?.submitForm()}
 				onClickInSaveAndBack={() => unformRef.current?.submitForm()}
-				onClickInNew={() => handleClickInNew()}
+				onClickInNew={() => navigate('/pessoas/detalhe/nova')}
 				showButtonDelete={id !== 'nova'}
 				showButtonNew={id !== 'nova'}
 				showButtonSaveAndBack
@@ -87,11 +88,18 @@ export const DetalhesPessoas: React.FC = () => {
 			/>
 			}
 		>
-			<Form ref={unformRef} onSubmit={handleSave}>
+			<Form ref={unformRef} onSubmit={handleSaveData}>
 				<UnformInputText name='fullName' label='Nome completo...' autoFocus />
 				<UnformInputText name='email' label='E-mail...' />
 				<UnformInputText name='cityId' label='Código da cidade' />
 			</Form>
+			{modalSaving &&
+				<ConfirmModalSave
+					description={id !== 'nova' ? 'Você será direcionado para a edição deste registro!' : 'Registro alterado com sucesso!'}
+					onSave={() => handleSave}
+				/>
+			}
+
 		</LayoutBaseDePagina>
 	);
 };

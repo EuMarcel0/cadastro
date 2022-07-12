@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Icon, IconButton, LinearProgress, Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TableRow, Typography } from '@mui/material';
 
 import { IlistingPeopleProps, PersonService } from '../../shared/services/person/PersonService';
-import { ConfirmModal, FerramentasListagem } from '../../shared/components';
+import { ConfirmModalDelete, FerramentasListagem } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { useDebounce } from '../../shared/hooks';
 import { Environment } from '../../shared/environment';
@@ -105,7 +105,7 @@ export const ListagemPessoas: React.FC = () => {
 											<IconButton onClick={() => navigate(`/pessoas/detalhe/${item.id}`)}>
 												<Icon>edit</Icon>
 											</IconButton>
-											<ConfirmModal onDelete={() => handleDeletePeople(item.id)} />
+											<ConfirmModalDelete onDelete={() => handleDeletePeople(item.id)} />
 										</Box>
 									</TableCell>
 								</TableRow>

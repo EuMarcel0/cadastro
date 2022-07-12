@@ -12,7 +12,7 @@ interface IConfirmModal {
 	onDelete: () => void;
 }
 
-export const ConfirmModal: React.FC<IConfirmModal> = ({ onDelete }) => {
+export const ConfirmModalDelete: React.FC<IConfirmModal> = ({ onDelete }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
