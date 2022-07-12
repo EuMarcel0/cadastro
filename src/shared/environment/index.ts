@@ -4,7 +4,7 @@ export const Environment = {
 	/**
      * PT_BR: Limite de linhas para cada página com os itens das requisições.
      */
-	LIMIT_OF_ROWS_PER_PAGE: 5,
+	LIMIT_OF_ROWS_PER_PAGE: 9,
 
 	/**
      * PT_BR: URL base para as requisições ao back-end

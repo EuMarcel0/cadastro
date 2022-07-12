@@ -19,6 +19,7 @@ export const DetalhesPessoas: React.FC = () => {
 	const [name, setName] = useState('');
 	const [loading, setLoaging] = useState(false);
 	const [modalSaving, setModalSaving] = useState(false);
+	const [modalEditSaving, setModalEditSaving] = useState(false);
 
 	useEffect(() => {
 		if (id !== 'nova') {
@@ -59,11 +60,25 @@ export const DetalhesPessoas: React.FC = () => {
 					if (response instanceof Error) {
 						alert(response.message);
 					}
-					// alert('Registro alterado com sucesso');
-					navigate('/pessoas');
+					setModalSaving(false);
+					setModalEditSaving(true);
+					if (modalEditSaving !== false) {
+						navigate('/pessoas');
+					}
 				});
 
 		}
+	};
+
+	const handleDelete = (id: number) => {
+		PersonService.deleteById(Number(id))
+			.then((response) => {
+				if (response instanceof Error) {
+					alert(response.message);
+					return response;
+				}
+				navigate('/pessoas');
+			});
 	};
 
 	const handleSaveData = (data: IFormProps) => {
@@ -80,6 +95,7 @@ export const DetalhesPessoas: React.FC = () => {
 				onClickInSave={() => unformRef.current?.submitForm()}
 				onClickInSaveAndBack={() => unformRef.current?.submitForm()}
 				onClickInNew={() => navigate('/pessoas/detalhe/nova')}
+				onClickInDelete={() => handleDelete(Number(id))}
 				showButtonDelete={id !== 'nova'}
 				showButtonNew={id !== 'nova'}
 				showButtonSaveAndBack
@@ -95,10 +111,22 @@ export const DetalhesPessoas: React.FC = () => {
 			</Form>
 			{modalSaving &&
 				<ConfirmModalSave
+					title='Registro salvo com sucesso!'
 					description={id !== 'nova' ? 'Você será direcionado para a edição deste registro!' : 'Registro alterado com sucesso!'}
 					onSave={() => handleSave}
+					onClickInClose={console.log}
 				/>
 			}
+
+			{modalEditSaving &&
+				<ConfirmModalSave
+					title='Registro alterado com sucesso!'
+					description={'Registro salvo'}
+					onSave={() => handleSave}
+					onClickInClose={() => navigate('/pessoas')}
+				/>
+			}
+
 
 		</LayoutBaseDePagina>
 	);
