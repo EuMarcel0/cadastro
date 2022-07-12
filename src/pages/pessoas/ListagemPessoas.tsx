@@ -66,6 +66,8 @@ export const ListagemPessoas: React.FC = () => {
 				textOfSearch={search}
 				handleTextOfSearch={text => setSearchParams({ busca: text, pagina: '1' }, { replace: true })}
 				handleInputClear={() => setSearchParams('')}
+				onClickButtonNew={() => navigate('/pessoas/detalhe/nova')}
+
 			/>
 			}
 
