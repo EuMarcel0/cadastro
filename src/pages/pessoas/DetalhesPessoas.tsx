@@ -31,6 +31,12 @@ export const DetalhesPessoas: React.FC = () => {
 						setName(response.fullName);
 					}
 				});
+		} else {
+			unformRef.current?.setData({
+				email: '',
+				fullName: '',
+				cityId: ''
+			});
 		}
 	}, [id]);
 
@@ -60,6 +66,10 @@ export const DetalhesPessoas: React.FC = () => {
 		}
 	};
 
+	const handleClickInNew = () => {
+		navigate('/pessoas/detalhe/nova');
+	};
+
 	return (
 		<LayoutBaseDePagina
 			title={id === 'nova' ? 'Cadastrando uma nova pessoa' : `Editando ${name}`}
@@ -68,7 +78,7 @@ export const DetalhesPessoas: React.FC = () => {
 				onClickInBack={() => navigate('/pessoas')}
 				onClickInSave={() => unformRef.current?.submitForm()}
 				onClickInSaveAndBack={() => unformRef.current?.submitForm()}
-				onClickInNew={() => navigate('/pessoas/detalhe/nova')}
+				onClickInNew={() => handleClickInNew()}
 				showButtonDelete={id !== 'nova'}
 				showButtonNew={id !== 'nova'}
 				showButtonSaveAndBack
@@ -78,7 +88,7 @@ export const DetalhesPessoas: React.FC = () => {
 			}
 		>
 			<Form ref={unformRef} onSubmit={handleSave}>
-				<UnformInputText name='fullName' label='Nome completo...' />
+				<UnformInputText name='fullName' label='Nome completo...' autoFocus />
 				<UnformInputText name='email' label='E-mail...' />
 				<UnformInputText name='cityId' label='Código da cidade' />
 			</Form>

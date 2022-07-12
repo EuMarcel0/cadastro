@@ -49,9 +49,12 @@ export const ListagemPessoas: React.FC = () => {
 			.then((response) => {
 				if (response instanceof Error) {
 					alert(response.message);
+				} else {
+					setPeople(oldPeoples => [
+						...oldPeoples.filter(oldPeople => oldPeople.id !== id)
+					]);
 				}
 			});
-		window.location.reload();
 	};
 
 
@@ -102,7 +105,7 @@ export const ListagemPessoas: React.FC = () => {
 											<IconButton onClick={() => navigate(`/pessoas/detalhe/${item.id}`)}>
 												<Icon>edit</Icon>
 											</IconButton>
-											<ConfirmModal handleDelete={() => handleDeletePeople(item.id)} />
+											<ConfirmModal onDelete={() => handleDeletePeople(item.id)} />
 										</Box>
 									</TableCell>
 								</TableRow>

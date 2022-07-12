@@ -9,10 +9,10 @@ import { Box, Icon, IconButton } from '@mui/material';
 
 
 interface IConfirmModal {
-	handleDelete: () => void;
+	onDelete: () => void;
 }
 
-export const ConfirmModal: React.FC<IConfirmModal> = ({ handleDelete }) => {
+export const ConfirmModal: React.FC<IConfirmModal> = ({ onDelete }) => {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -22,6 +22,12 @@ export const ConfirmModal: React.FC<IConfirmModal> = ({ handleDelete }) => {
 	const handleClose = () => {
 		setOpen(false);
 	};
+
+	const handleDelete = () => {
+		setOpen(false);
+		onDelete();
+	};
+
 	return (
 		<Box>
 			<IconButton onClick={handleClickOpen}>
@@ -34,7 +40,7 @@ export const ConfirmModal: React.FC<IConfirmModal> = ({ handleDelete }) => {
 				aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id="alert-dialog-title">
-					{'Você deseja realmente apagar este arquivo?'}
+					{'Você deseja realmente deletar este registro?'}
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
