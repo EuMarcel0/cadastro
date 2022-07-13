@@ -1,4 +1,4 @@
-import { Box, Grid, LinearProgress } from '@mui/material';
+import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
@@ -24,8 +24,10 @@ export const DetalhesPessoas: React.FC = () => {
 
 	useEffect(() => {
 		if (id !== 'nova') {
+			setLoaging(true);
 			PersonService.getById(Number(id))
 				.then((response) => {
+					setLoaging(false);
 					if (response instanceof Error) {
 						alert(response.message);
 						navigate('/pessoas');
@@ -88,7 +90,7 @@ export const DetalhesPessoas: React.FC = () => {
 
 	return (
 		<LayoutBaseDePagina
-			title={id === 'nova' ? ' → Cadastro de pessoas' : `Editando ${name}`}
+			title={id === 'nova' ? ' → Cadastro de pessoas' : `→ Editando ${name}`}
 			icon=''
 			toolbar={<FerramentasDetalhes
 				onClickInBack={() => navigate('/pessoas')}
@@ -102,18 +104,27 @@ export const DetalhesPessoas: React.FC = () => {
 			/>
 			}
 		>
-			{loading &&
-				<LinearProgress />
-			}
-
 
 			<Form ref={unformRef} onSubmit={handleClickInSave}>
 				<Box
 					display='flex'
 					alignItems='center'
 					justifyContent='center'
+					component={Paper}
+					padding={3}
 				>
 					<Grid container direction='column'>
+
+						{loading &&
+							<Grid item>
+								<LinearProgress variant='indeterminate' />
+							</Grid>
+						}
+
+						<Grid item>
+							<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
+						</Grid>
+
 						<Grid container item direction='row' justifyContent='center'>
 							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
 								<UnformInputText fullWidth name='fullName' label='Nome completo...' autoFocus />

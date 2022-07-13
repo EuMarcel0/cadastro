@@ -140,7 +140,7 @@ export const FerramentasDetalhes = ({
 				<Box display='flex' flex={1} justifyContent='end'>
 					<Button
 						sx={{ borderRadius: 0 }}
-						variant='contained'
+						variant='outlined'
 						startIcon={<Icon>arrow_back</Icon>}
 						size="small"
 						onClick={onClickInBack}

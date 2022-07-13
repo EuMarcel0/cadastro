@@ -1,10 +1,22 @@
 {
   "pessoas": [
     {
+      "id": 2,
       "fullName": "Lorencia Benevides",
       "email": "lorencia@gmail.com",
-      "cityId": "2",
-      "id": 2
+      "cityId": "2"
+    },
+    {
+      "fullName": "MARCELO RIBEIRO DA SILVA",
+      "email": "vistaeasy@gmail.com",
+      "cityId": "3",
+      "id": 3
+    },
+    {
+      "fullName": "José Loencio",
+      "email": "jose@hotmail.com",
+      "cityId": "4",
+      "id": 4
     }
   ]
 }
