@@ -1,11 +1,13 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+
 import { ConfirmModalDeleteInEdit, ConfirmModalSave, FerramentasDetalhes, UnformInputText } from '../../shared/components';
-import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PersonService } from '../../shared/services/person/PersonService';
+import { LayoutBaseDePagina } from '../../shared/layouts';
+import peopleIllustration from '../../assets/images/people.svg';
 
 interface IFormProps {
 	email: string;
@@ -164,6 +166,16 @@ export const DetalhesPessoas: React.FC = () => {
 					onCloseModal={() => setModalDeleteInEdit(modalDeleteInEdit === true ? false : true)}
 				/>
 			}
+			<Box
+				width='100%'
+				height='100%'
+				maxWidth='300px'
+				maxHeight='300px'
+				marginX='auto'
+				marginY={6}
+			>
+				<img style={{ width: '100%' }} src={peopleIllustration} />
+			</Box>
 		</LayoutBaseDePagina >
 	);
 };

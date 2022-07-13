@@ -9,9 +9,10 @@ interface ILayoutBaseDePaginaProps {
 	toolbar: ReactNode | undefined;
 	children: ReactNode;
 	totalCount?: string;
+	illustration?: React.ReactNode;
 }
 
-export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, icon, title, totalCount, toolbar }) => {
+export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ children, icon, title, totalCount, toolbar, illustration }) => {
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -59,6 +60,9 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
 			}
 			<Box flex={1}>
 				{children}
+			</Box>
+			<Box>
+				{illustration}
 			</Box>
 		</Box>
 	);
