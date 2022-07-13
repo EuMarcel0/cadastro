@@ -38,7 +38,7 @@ export const ListagemPessoas: React.FC = () => {
 						console.log(response.totalCount);
 						console.log(response.data);
 						setPeople(response.data);
-						setTotalCount(response.data.length);
+						setTotalCount(response.totalCount);
 					}
 				});
 		});
@@ -87,7 +87,7 @@ export const ListagemPessoas: React.FC = () => {
 								<TableRow >
 									<TableCell>Nome completo</TableCell>
 									<TableCell>E-mail</TableCell>
-									<TableCell>Ações</TableCell>
+									<TableCell align='right'>Ações</TableCell>
 								</TableRow>
 							</TableHead>
 						}
@@ -101,8 +101,8 @@ export const ListagemPessoas: React.FC = () => {
 								<TableRow key={item.id}>
 									<TableCell>{item.fullName}</TableCell>
 									<TableCell>{item.email}</TableCell>
-									<TableCell padding='none'>
-										<Box display='flex'>
+									<TableCell padding='none' align='right'>
+										<Box display='flex' justifyContent='right'>
 											<IconButton onClick={() => navigate(`/pessoas/detalhe/${item.id}`)}>
 												<Icon>edit</Icon>
 											</IconButton>

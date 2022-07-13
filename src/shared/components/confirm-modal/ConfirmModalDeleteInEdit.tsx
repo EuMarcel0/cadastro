@@ -46,8 +46,8 @@ export const ConfirmModalDeleteInEdit: React.FC<IConfirmModal> = ({ onDelete, on
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={onCloseModal} variant='outlined'>Abortar</Button>
-					<Button onClick={handleDelete}
+					<Button sx={{ borderRadius: '0' }} onClick={onCloseModal} variant='outlined'>Abortar</Button>
+					<Button sx={{ borderRadius: '0' }} onClick={handleDelete}
 						variant='contained'
 						autoFocus
 					>

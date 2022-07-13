@@ -28,6 +28,12 @@ export const ConfirmModalDelete: React.FC<IConfirmModal> = ({ onDelete }) => {
 		onDelete();
 	};
 
+	const handleKeyDelete = (e: KeyboardEvent) => {
+		if (e.key === 'Enter') {
+			console.log('Clicou Enter');
+		}
+	};
+
 	return (
 		<Box>
 			<IconButton onClick={handleClickOpen}>
@@ -50,7 +56,9 @@ export const ConfirmModalDelete: React.FC<IConfirmModal> = ({ onDelete }) => {
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose} variant='outlined'>Abortar</Button>
-					<Button onClick={handleDelete}
+					<Button
+						onClick={handleDelete}
+						onKeyUp={() => handleKeyDelete}
 						variant='contained'
 						autoFocus
 					>

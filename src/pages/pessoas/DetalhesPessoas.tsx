@@ -1,3 +1,4 @@
+import { Box, Grid, LinearProgress } from '@mui/material';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
@@ -47,17 +48,20 @@ export const DetalhesPessoas: React.FC = () => {
 		if (id === 'nova') {
 			PersonService.create(data)
 				.then((response) => {
-					setLoaging(false);
+					setLoaging(true);
 					if (response instanceof Error) {
 						alert(response.message);
 					} else {
 						navigate(`/pessoas/detalhe/${response}`);
+						setLoaging(false);
 					}
 				});
 		} else {
+			setLoaging(true);
 			setModalSaving(modalSaving === false ? true : false);
 			PersonService.updateById(Number(id), { id: Number(id), ...data })
 				.then((response) => {
+					setLoaging(false);
 					if (response instanceof Error) {
 						alert(response.message);
 					}
@@ -84,39 +88,71 @@ export const DetalhesPessoas: React.FC = () => {
 
 	return (
 		<LayoutBaseDePagina
-			title={id === 'nova' ? 'Novo cadastro de pessoa' : `Editando ${name}`}
-			icon='people-edit'
+			title={id === 'nova' ? ' → Cadastro de pessoas' : `Editando ${name}`}
+			icon=''
 			toolbar={<FerramentasDetalhes
 				onClickInBack={() => navigate('/pessoas')}
 				onClickInSave={() => unformRef.current?.submitForm()}
-				onClickInSaveAndBack={() => unformRef.current?.submitForm()}
 				onClickInNew={() => navigate('/pessoas/detalhe/nova')}
 				onClickInDelete={() => setModalDeleteInEdit(true)}
 				showButtonDelete={id !== 'nova'}
 				showButtonNew={id !== 'nova'}
-				showButtonSaveAndBack
 				showButtonSave
 				showButtonBack
 			/>
 			}
 		>
+			{loading &&
+				<LinearProgress />
+			}
+
+
 			<Form ref={unformRef} onSubmit={handleClickInSave}>
-				<UnformInputText name='fullName' label='Nome completo...' autoFocus />
-				<UnformInputText name='email' label='E-mail...' />
-				<UnformInputText name='cityId' label='Código da cidade' />
+				<Box
+					display='flex'
+					alignItems='center'
+					justifyContent='center'
+				>
+					<Grid container direction='column'>
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText fullWidth name='fullName' label='Nome completo...' autoFocus />
+							</Grid>
+						</Grid>
+
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText fullWidth name='email' label='E-mail...' />
+							</Grid>
+						</Grid>
+
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText fullWidth name='cityId' label='Código da cidade' />
+							</Grid>
+						</Grid>
+
+					</Grid>
+				</Box>
 			</Form>
-			{modalSaving &&
+
+
+			{
+				modalSaving &&
 				<ConfirmModalSave
 					title='Registro salvo com sucesso!'
-					onCloseModaSave={() => setModalSaving(modalSaving === true ? false : true)}
+					description='Clique em "OK" para permanecer na tela de edição'
+					onCloseModalSave={() => setModalSaving(modalSaving === true ? false : true)}
+					onCloseModaAndBack={() => navigate('/pessoas')}
 				/>
 			}
-			{modalDeleteInEdit &&
+			{
+				modalDeleteInEdit &&
 				<ConfirmModalDeleteInEdit
 					onDelete={() => handleDelete(Number(id))}
 					onCloseModal={() => setModalDeleteInEdit(modalDeleteInEdit === true ? false : true)}
 				/>
 			}
-		</LayoutBaseDePagina>
+		</LayoutBaseDePagina >
 	);
 };

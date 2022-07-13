@@ -11,17 +11,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 interface IConfirmModal {
 	title: string;
-	onCloseModaSave?: () => void;
+	description: string;
+	onCloseModalSave?: () => void;
+	onCloseModaAndBack?: () => void;
 }
 
-export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, onCloseModaSave }) => {
+export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, description, onCloseModalSave, onCloseModaAndBack }) => {
 	const [open, setOpen] = React.useState(true);
 	const navigate = useNavigate();
 	const { id = 'nova' } = useParams<'id'>();
 
 
 	const handleClose = () => {
-		onCloseModaSave?.();
+		onCloseModalSave?.();
 		setOpen(false);
 		navigate(id !== 'nova' ? '' : '/pessoas');
 	};
@@ -39,11 +41,12 @@ export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, onCloseModaSa
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						{''}
+						{description}
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={onCloseModaSave} variant='outlined'>Fechar</Button>
+					<Button sx={{ borderRadius: '0' }} onClick={onCloseModaAndBack} variant='contained'>Fechar e voltar</Button>
+					<Button sx={{ borderRadius: '0' }} onClick={onCloseModalSave} variant='outlined'>OK</Button>
 				</DialogActions>
 			</Dialog>
 		</Box>
