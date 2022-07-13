@@ -49,6 +49,7 @@ export const ListagemPessoas: React.FC = () => {
 			.then((response) => {
 				if (response instanceof Error) {
 					alert(response.message);
+					return response;
 				} else {
 					setPeople(oldPeoples => [
 						...oldPeoples.filter(oldPeople => oldPeople.id !== id)
@@ -83,7 +84,7 @@ export const ListagemPessoas: React.FC = () => {
 					<Table>
 						{people.length > 0 &&
 							<TableHead>
-								<TableRow>
+								<TableRow >
 									<TableCell>Nome completo</TableCell>
 									<TableCell>E-mail</TableCell>
 									<TableCell>Ações</TableCell>

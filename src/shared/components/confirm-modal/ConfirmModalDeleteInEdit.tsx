@@ -6,28 +6,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Box, Icon, IconButton } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
 
 
 interface IConfirmModal {
-	title: string;
-	description: string;
-	onSave: () => void;
-	onClickInClose?: () => void;
+	onDelete: () => void;
+	onCloseModal: () => void;
 }
 
-export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, description, onSave, onClickInClose }) => {
+export const ConfirmModalDeleteInEdit: React.FC<IConfirmModal> = ({ onDelete, onCloseModal }) => {
 	const [open, setOpen] = React.useState(true);
-	const navigate = useNavigate();
-	const { id = 'nova' } = useParams<'id'>();
 
 
 	const handleClose = () => {
-		onSave();
-		onClickInClose?.();
-		setOpen(false);
-		navigate(id !== 'nova' ? '' : '/pessoas');
+		onCloseModal();
 	};
+
+	const handleDelete = () => {
+		setOpen(false);
+		onDelete();
+	};
+
+
 
 	return (
 		<Box>
@@ -38,15 +37,22 @@ export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, description, 
 				aria-describedby="alert-dialog-description"
 			>
 				<DialogTitle id="alert-dialog-title">
-					{title}
+					{'Você deseja realmente deletar este registro?'}
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						{description}
+						Depois que deletar este registro, o mesmo não poderá ser restaurado ou reutilizado.
+						Deseja prosseguir com a operação, em sua total responsabilidade?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} variant='outlined'>Fechar</Button>
+					<Button onClick={onCloseModal} variant='outlined'>Abortar</Button>
+					<Button onClick={handleDelete}
+						variant='contained'
+						autoFocus
+					>
+						Deletar
+					</Button>
 				</DialogActions>
 			</Dialog>
 		</Box>

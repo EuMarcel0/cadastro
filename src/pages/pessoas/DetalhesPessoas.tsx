@@ -2,7 +2,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ConfirmModalSave, FerramentasDetalhes, UnformInputText } from '../../shared/components';
+import { ConfirmModalDeleteInEdit, ConfirmModalSave, FerramentasDetalhes, UnformInputText } from '../../shared/components';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 import { PersonService } from '../../shared/services/person/PersonService';
 
@@ -20,6 +20,7 @@ export const DetalhesPessoas: React.FC = () => {
 	const [loading, setLoaging] = useState(false);
 	const [modalSaving, setModalSaving] = useState(false);
 	const [modalEditSaving, setModalEditSaving] = useState(false);
+	const [modalDeleteInEdit, setModalDeleteInEdit] = useState(false);
 
 	useEffect(() => {
 		if (id !== 'nova') {
@@ -95,7 +96,7 @@ export const DetalhesPessoas: React.FC = () => {
 				onClickInSave={() => unformRef.current?.submitForm()}
 				onClickInSaveAndBack={() => unformRef.current?.submitForm()}
 				onClickInNew={() => navigate('/pessoas/detalhe/nova')}
-				onClickInDelete={() => handleDelete(Number(id))}
+				onClickInDelete={() => setModalDeleteInEdit(true)}
 				showButtonDelete={id !== 'nova'}
 				showButtonNew={id !== 'nova'}
 				showButtonSaveAndBack
@@ -114,7 +115,6 @@ export const DetalhesPessoas: React.FC = () => {
 					title='Registro salvo com sucesso!'
 					description={id !== 'nova' ? 'Você será direcionado para a edição deste registro!' : 'Registro alterado com sucesso!'}
 					onSave={() => handleSave}
-					onClickInClose={console.log}
 				/>
 			}
 
@@ -124,6 +124,12 @@ export const DetalhesPessoas: React.FC = () => {
 					description={'Registro salvo'}
 					onSave={() => handleSave}
 					onClickInClose={() => navigate('/pessoas')}
+				/>
+			}
+			{modalDeleteInEdit &&
+				<ConfirmModalDeleteInEdit
+					onDelete={() => handleDelete(Number(id))}
+					onCloseModal={() => setModalDeleteInEdit(modalDeleteInEdit === true ? false : true)}
 				/>
 			}
 
