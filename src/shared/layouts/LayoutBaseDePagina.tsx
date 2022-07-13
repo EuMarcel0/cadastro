@@ -1,5 +1,6 @@
 import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ReactNode } from 'react';
+
 import { useDrawerContext } from '../contexts';
 
 interface ILayoutBaseDePaginaProps {
@@ -18,23 +19,36 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
 	const { toggleDrawerOpen } = useDrawerContext();
 
 	return (
-		<Box height='100%' display='flex' flexDirection='column' gap={1} marginX={1}>
-			<Box display='flex' alignItems='center' padding={1} height={theme.spacing(smDown ? 6 : mdDown ? 8 : 10)} gap={1}>
-				{smDown &&
-					<IconButton onClick={toggleDrawerOpen}>
-						<Icon>menu</Icon>
-					</IconButton>
-				}
-				<Icon>{icon}</Icon>
-				<Typography
-					overflow='hidden'
-					whiteSpace='nowrap'
-					textOverflow='ellipsis'
-					variant={smDown ? 'h6' : mdDown ? 'h5' : 'h4'}
+		<Box height='100%' display='flex' flexDirection='column' gap={1} marginX={1} >
+			<Box
+				display='flex'
+				alignItems='center'
+				justifyContent='space-between'
+				padding={1}
+				height={theme.spacing(smDown ? 6 : mdDown ? 8 : 10)}
+				gap={1}
+			>
+				<Box display='flex' alignItems='center' >
+					{smDown &&
+						<IconButton onClick={toggleDrawerOpen}>
+							<Icon>menu</Icon>
+						</IconButton>
+					}
+					<Icon>{icon}</Icon>
+					<Typography
+						overflow='hidden'
+						whiteSpace='nowrap'
+						textOverflow='ellipsis'
+						variant={smDown ? 'h6' : mdDown ? 'h5' : 'h4'}
+					>
+						{title}
+					</Typography>
+				</Box>
+				<Box
+					height='100%'
+					display='flex'
+					alignItems='center'
 				>
-					{title}
-				</Typography>
-				<Box flex='1'>
 					<Typography>{totalCount}</Typography>
 				</Box>
 			</Box>

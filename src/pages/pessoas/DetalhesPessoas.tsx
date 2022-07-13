@@ -19,7 +19,6 @@ export const DetalhesPessoas: React.FC = () => {
 	const [name, setName] = useState('');
 	const [loading, setLoaging] = useState(false);
 	const [modalSaving, setModalSaving] = useState(false);
-	const [modalEditSaving, setModalEditSaving] = useState(false);
 	const [modalDeleteInEdit, setModalDeleteInEdit] = useState(false);
 
 	useEffect(() => {
@@ -56,15 +55,11 @@ export const DetalhesPessoas: React.FC = () => {
 					}
 				});
 		} else {
+			setModalSaving(modalSaving === false ? true : false);
 			PersonService.updateById(Number(id), { id: Number(id), ...data })
 				.then((response) => {
 					if (response instanceof Error) {
 						alert(response.message);
-					}
-					setModalSaving(false);
-					setModalEditSaving(true);
-					if (modalEditSaving !== false) {
-						navigate('/pessoas');
 					}
 				});
 
@@ -82,9 +77,9 @@ export const DetalhesPessoas: React.FC = () => {
 			});
 	};
 
-	const handleSaveData = (data: IFormProps) => {
-		setModalSaving(true);
+	const handleClickInSave = (data: IFormProps) => {
 		handleSave(data);
+		setModalSaving(true);
 	};
 
 	return (
@@ -105,7 +100,7 @@ export const DetalhesPessoas: React.FC = () => {
 			/>
 			}
 		>
-			<Form ref={unformRef} onSubmit={handleSaveData}>
+			<Form ref={unformRef} onSubmit={handleClickInSave}>
 				<UnformInputText name='fullName' label='Nome completo...' autoFocus />
 				<UnformInputText name='email' label='E-mail...' />
 				<UnformInputText name='cityId' label='Código da cidade' />
@@ -113,17 +108,7 @@ export const DetalhesPessoas: React.FC = () => {
 			{modalSaving &&
 				<ConfirmModalSave
 					title='Registro salvo com sucesso!'
-					description={id !== 'nova' ? 'Você será direcionado para a edição deste registro!' : 'Registro alterado com sucesso!'}
-					onSave={() => handleSave}
-				/>
-			}
-
-			{modalEditSaving &&
-				<ConfirmModalSave
-					title='Registro alterado com sucesso!'
-					description={'Registro salvo'}
-					onSave={() => handleSave}
-					onClickInClose={() => navigate('/pessoas')}
+					onCloseModaSave={() => setModalSaving(modalSaving === true ? false : true)}
 				/>
 			}
 			{modalDeleteInEdit &&
@@ -132,8 +117,6 @@ export const DetalhesPessoas: React.FC = () => {
 					onCloseModal={() => setModalDeleteInEdit(modalDeleteInEdit === true ? false : true)}
 				/>
 			}
-
-
 		</LayoutBaseDePagina>
 	);
 };

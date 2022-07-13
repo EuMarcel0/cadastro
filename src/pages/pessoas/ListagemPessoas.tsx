@@ -38,7 +38,7 @@ export const ListagemPessoas: React.FC = () => {
 						console.log(response.totalCount);
 						console.log(response.data);
 						setPeople(response.data);
-						setTotalCount(response.totalCount);
+						setTotalCount(response.data.length);
 					}
 				});
 		});
