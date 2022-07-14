@@ -8,7 +8,7 @@ type IUnformInputTextProps = TextFieldProps & {
 
 export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest }) => {
 
-	const { defaultValue, error, fieldName, registerField } = useField(name);
+	const { defaultValue, error, fieldName, registerField, clearError } = useField(name);
 	const [value, setValue] = useState(defaultValue || '');
 
 	useEffect(() => {
@@ -26,6 +26,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 				{...rest}
 				value={value}
 				onChange={(e) => { setValue(e.target.value); rest.onChange?.(e); }}
+				onKeyDown={(e) => { error && clearError(); rest.onKeyDown?.(e); }}
 				defaultValue={defaultValue}
 				error={!!error}
 				variant='outlined'

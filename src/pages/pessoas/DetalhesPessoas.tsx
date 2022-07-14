@@ -2,12 +2,12 @@ import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 
-import { ConfirmModalDeleteInEdit, ConfirmModalSave, FerramentasDetalhes, UnformInputText } from '../../shared/components';
+import { ConfirmModalDeleteInEdit, ConfirmModalSave, FerramentasDetalhes } from '../../shared/components';
 import { PersonService } from '../../shared/services/person/PersonService';
-import { LayoutBaseDePagina } from '../../shared/layouts';
 import peopleIllustration from '../../assets/images/people.svg';
+import { UnformInputText, VForm } from '../../shared/components/form';
+import { LayoutBaseDePagina } from '../../shared/layouts';
 
 interface IFormProps {
 	email: string;
@@ -16,13 +16,16 @@ interface IFormProps {
 }
 
 export const DetalhesPessoas: React.FC = () => {
+
+	const [modalDeleteInEdit, setModalDeleteInEdit] = useState(false);
+	const [modalSaving, setModalSaving] = useState(false);
+	const [loading, setLoaging] = useState(false);
+	const [name, setName] = useState('');
+
+	const unformRef = useRef<FormHandles>(null);
 	const { id = 'nova' } = useParams<'id'>();
 	const navigate = useNavigate();
-	const unformRef = useRef<FormHandles>(null);
-	const [name, setName] = useState('');
-	const [loading, setLoaging] = useState(false);
-	const [modalSaving, setModalSaving] = useState(false);
-	const [modalDeleteInEdit, setModalDeleteInEdit] = useState(false);
+
 
 	useEffect(() => {
 		if (id !== 'nova') {
@@ -107,7 +110,7 @@ export const DetalhesPessoas: React.FC = () => {
 			}
 		>
 
-			<Form ref={unformRef} onSubmit={handleClickInSave}>
+			<VForm ref={unformRef} onSubmit={handleClickInSave}>
 				<Box
 					display='flex'
 					alignItems='center'
@@ -127,51 +130,43 @@ export const DetalhesPessoas: React.FC = () => {
 							</Grid>
 						}
 
-						{(!loading &&
-							<>
-								<Grid item>
-									<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
-								</Grid>
-
-								<Grid container item direction='row' justifyContent='center'>
-									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-										<UnformInputText fullWidth
-											name='fullName'
-											label='Nome completo'
-											autoFocus
-											disabled={loading}
-											onChange={e => setName(e.target.value)}
-										/>
-									</Grid>
-								</Grid>
-
-								<Grid container item direction='row' justifyContent='center'>
-									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-										<UnformInputText fullWidth
-											name='email'
-											label='E-mail'
-											disabled={loading}
-										/>
-									</Grid>
-								</Grid>
-
-								<Grid container item direction='row' justifyContent='center'>
-									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-										<UnformInputText
-											fullWidth
-											name='cityId'
-											label='Código da cidade'
-											disabled={loading}
-										/>
-									</Grid>
-								</Grid>
-							</>
-						)}
+						<Grid item>
+							<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
+						</Grid>
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText fullWidth
+									name='fullName'
+									label='Nome completo'
+									autoFocus
+									disabled={loading}
+									onChange={e => setName(e.target.value)}
+								/>
+							</Grid>
+						</Grid>
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText fullWidth
+									name='email'
+									label='E-mail'
+									disabled={loading}
+								/>
+							</Grid>
+						</Grid>
+						<Grid container item direction='row' justifyContent='center'>
+							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+								<UnformInputText
+									fullWidth
+									name='cityId'
+									label='Código da cidade'
+									disabled={loading}
+								/>
+							</Grid>
+						</Grid>
 
 					</Grid>
 				</Box>
-			</Form>
-
+			</VForm>
 
 			{
 				modalSaving &&
