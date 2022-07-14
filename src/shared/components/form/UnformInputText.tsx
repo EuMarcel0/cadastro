@@ -25,7 +25,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 			<TextField
 				{...rest}
 				value={value}
-				onChange={(e) => setValue(e.target.value)}
+				onChange={(e) => { setValue(e.target.value); rest.onChange?.(e); }}
 				defaultValue={defaultValue}
 				error={!!error}
 				variant='outlined'

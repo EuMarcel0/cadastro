@@ -113,37 +113,60 @@ export const DetalhesPessoas: React.FC = () => {
 					alignItems='center'
 					justifyContent='center'
 					component={Paper}
+					elevation={6}
 					padding={3}
 				>
 					<Grid container direction='column'>
 
 						{loading &&
-							<Grid item>
+							<Grid item justifyContent='center'>
 								<LinearProgress variant='indeterminate' />
+								<Typography variant='caption' align='center'>
+									Carregando dados...
+								</Typography>
 							</Grid>
 						}
 
-						<Grid item>
-							<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
-						</Grid>
+						{(!loading &&
+							<>
+								<Grid item>
+									<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
+								</Grid>
 
-						<Grid container item direction='row' justifyContent='center'>
-							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-								<UnformInputText fullWidth name='fullName' label='Nome completo...' autoFocus />
-							</Grid>
-						</Grid>
+								<Grid container item direction='row' justifyContent='center'>
+									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+										<UnformInputText fullWidth
+											name='fullName'
+											label='Nome completo'
+											autoFocus
+											disabled={loading}
+											onChange={e => setName(e.target.value)}
+										/>
+									</Grid>
+								</Grid>
 
-						<Grid container item direction='row' justifyContent='center'>
-							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-								<UnformInputText fullWidth name='email' label='E-mail...' />
-							</Grid>
-						</Grid>
+								<Grid container item direction='row' justifyContent='center'>
+									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+										<UnformInputText fullWidth
+											name='email'
+											label='E-mail'
+											disabled={loading}
+										/>
+									</Grid>
+								</Grid>
 
-						<Grid container item direction='row' justifyContent='center'>
-							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-								<UnformInputText fullWidth name='cityId' label='Código da cidade' />
-							</Grid>
-						</Grid>
+								<Grid container item direction='row' justifyContent='center'>
+									<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
+										<UnformInputText
+											fullWidth
+											name='cityId'
+											label='Código da cidade'
+											disabled={loading}
+										/>
+									</Grid>
+								</Grid>
+							</>
+						)}
 
 					</Grid>
 				</Box>

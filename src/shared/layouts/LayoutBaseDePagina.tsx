@@ -29,7 +29,13 @@ export const LayoutBaseDePagina: React.FC<ILayoutBaseDePaginaProps> = ({ childre
 				height={theme.spacing(smDown ? 6 : mdDown ? 8 : 10)}
 				gap={1}
 			>
-				<Box display='flex' alignItems='center' >
+				<Box
+					display='flex'
+					alignItems='center'
+					overflow='hidden'
+					whiteSpace='nowrap'
+					textOverflow='ellipsis'
+				>
 					{smDown &&
 						<IconButton onClick={toggleDrawerOpen}>
 							<Icon>menu</Icon>

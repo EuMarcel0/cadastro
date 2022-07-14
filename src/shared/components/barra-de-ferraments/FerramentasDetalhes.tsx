@@ -51,6 +51,7 @@ export const FerramentasDetalhes = ({
 		<Box
 			borderRadius={0}
 			component={Paper}
+			elevation={6}
 			height={theme.spacing(7)}
 			display='flex'
 			alignItems='center'
