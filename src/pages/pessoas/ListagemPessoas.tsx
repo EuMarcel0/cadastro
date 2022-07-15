@@ -63,7 +63,6 @@ export const ListagemPessoas: React.FC = () => {
 		<LayoutBaseDePagina
 			icon={<Typography><Icon>people</Icon></Typography>}
 			title='Listagem de pessoas'
-			totalCount={`Total de registros encontrados: ${totalCount}`}
 			toolbar={<FerramentasListagem
 				showInputSearch
 				textButtonNew='Nova'

@@ -1,12 +1,12 @@
 import { Box, Grid, LinearProgress, Paper, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
-import { FormHandles } from '@unform/core';
+import { useEffect, useState } from 'react';
+import * as yup from 'yup';
 
 import { ConfirmModalDeleteInEdit, ConfirmModalSave, FerramentasDetalhes } from '../../shared/components';
 import { PersonService } from '../../shared/services/person/PersonService';
 import peopleIllustration from '../../assets/images/people.svg';
-import { UnformInputText, VForm } from '../../shared/components/form';
+import { UnformInputText, useVForm, VForm, VFormErrors } from '../../shared/components/form';
 import { LayoutBaseDePagina } from '../../shared/layouts';
 
 interface IFormProps {
@@ -15,24 +15,29 @@ interface IFormProps {
 	cityId: number;
 }
 
+const validateYupFormSchema: yup.SchemaOf<IFormProps> = yup.object().shape({
+	email: yup.string().required().email(),
+	fullName: yup.string().required().min(3),
+	cityId: yup.number().required(),
+});
+
 export const DetalhesPessoas: React.FC = () => {
 
 	const [modalDeleteInEdit, setModalDeleteInEdit] = useState(false);
 	const [modalSaving, setModalSaving] = useState(false);
-	const [loading, setLoaging] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [name, setName] = useState('');
 
-	const unformRef = useRef<FormHandles>(null);
+	const { unformRef } = useVForm();
 	const { id = 'nova' } = useParams<'id'>();
 	const navigate = useNavigate();
 
-
 	useEffect(() => {
 		if (id !== 'nova') {
-			setLoaging(true);
+			setLoading(true);
 			PersonService.getById(Number(id))
 				.then((response) => {
-					setLoaging(false);
+					setLoading(false);
 					if (response instanceof Error) {
 						alert(response.message);
 						navigate('/pessoas');
@@ -48,33 +53,45 @@ export const DetalhesPessoas: React.FC = () => {
 				cityId: ''
 			});
 		}
+
 	}, [id]);
 
 	const handleSave = (data: IFormProps) => {
-		setLoaging(true);
-		if (id === 'nova') {
-			PersonService.create(data)
-				.then((response) => {
-					setLoaging(true);
-					if (response instanceof Error) {
-						alert(response.message);
-					} else {
-						navigate(`/pessoas/detalhe/${response}`);
-						setLoaging(false);
-					}
-				});
-		} else {
-			setLoaging(true);
-			setModalSaving(modalSaving === false ? true : false);
-			PersonService.updateById(Number(id), { id: Number(id), ...data })
-				.then((response) => {
-					setLoaging(false);
-					if (response instanceof Error) {
-						alert(response.message);
-					}
-				});
+		validateYupFormSchema.validate(data, { abortEarly: false })
+			.then((validatesData) => {
+				setLoading(true);
+				if (id === 'nova') {
+					PersonService.create(validatesData)
+						.then((response) => {
+							setLoading(true);
+							if (response instanceof Error) {
+								alert(response.message);
+							} else {
+								navigate(`/pessoas/detalhe/${response}`);
+								setLoading(false);
+							}
+						});
+				} else {
+					setLoading(true);
+					setModalSaving(modalSaving === false ? true : false);
+					PersonService.updateById(Number(id), { id: Number(id), ...validatesData })
+						.then((response) => {
+							setLoading(false);
+							if (response instanceof Error) {
+								alert(response.message);
+							}
+						});
 
-		}
+				}
+			})
+			.catch((errors: yup.ValidationError) => {
+				const validationErrors: VFormErrors = {};
+				errors.inner.map(error => {
+					if (!error.path) return;
+					validationErrors[error.path] = error.message;
+				});
+				unformRef.current?.setErrors(validationErrors);
+			});
 	};
 
 	const handleDelete = (id: number) => {

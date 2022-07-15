@@ -7,34 +7,16 @@
       "cityId": "2"
     },
     {
-      "id": 3,
-      "fullName": "MARCELO RIBEIRO DA SILVAs",
-      "email": "vistaeasy@gmail.com",
-      "cityId": "3"
-    },
-    {
       "fullName": "José Loencio",
       "email": "jose@hotmail.com",
       "cityId": "4",
       "id": 4
     },
     {
-      "fullName": "asd",
-      "email": "asd",
-      "cityId": "asd",
+      "fullName": "MARCELO RIBEIRO DA SILVA",
+      "email": "vistaeasy@gmail.com",
+      "cityId": "Bom Jesus da Lapa",
       "id": 5
-    },
-    {
-      "fullName": "asdasd",
-      "email": "asdasd",
-      "cityId": "asdsad",
-      "id": 6
-    },
-    {
-      "fullName": "asd",
-      "email": "asd",
-      "cityId": "asd",
-      "id": 7
     }
   ]
 }
