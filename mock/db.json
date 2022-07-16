@@ -2,9 +2,9 @@
   "pessoas": [
     {
       "id": 2,
+      "cityId": 2,
       "fullName": "Lorencia Benevides",
-      "email": "lorencia@gmail.com",
-      "cityId": "2"
+      "email": "lorencia@gmail.com"
     },
     {
       "fullName": "José Loencio",

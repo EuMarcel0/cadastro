@@ -17,7 +17,7 @@ interface IFormProps {
 
 const validateYupFormSchema: yup.SchemaOf<IFormProps> = yup.object().shape({
 	email: yup.string().required().email(),
-	fullName: yup.string().required().min(3),
+	fullName: yup.string().required().min(5),
 	cityId: yup.number().required(),
 });
 
@@ -89,6 +89,7 @@ export const DetalhesPessoas: React.FC = () => {
 				errors.inner.map(error => {
 					if (!error.path) return;
 					validationErrors[error.path] = error.message;
+					setModalSaving(false);
 				});
 				unformRef.current?.setErrors(validationErrors);
 			});
