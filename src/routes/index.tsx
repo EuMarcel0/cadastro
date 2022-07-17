@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { ListagemPessoas } from '../pages/pessoas/ListagemPessoas';
+import { Dashboard, DetalhesCidades, DetalhesPessoas, ListagemCidades, ListagemPessoas } from '../pages';
 import { useDrawerContext } from '../shared/contexts';
-import { Dashboard, DetalhesPessoas } from '../pages';
 
 export const AppRoutes = () => {
 	const { setDrawerOptions } = useDrawerContext();
@@ -16,23 +15,32 @@ export const AppRoutes = () => {
 				path: '/pagina-inicial'
 			},
 			{
+				label: 'Cidades',
+				icon: 'location_city',
+				path: '/cidades'
+			},
+			{
 				label: 'Pessoas',
 				icon: 'person',
 				path: '/pessoas'
-			}
+			},
 		]);
 	}, []);
 
 	return (
 		<Routes>
 			<Route path="/pagina-inicial" element={<Dashboard />} />
+
 			<Route path="/pessoas" element={<ListagemPessoas />} />
 			<Route path="/pessoas/detalhe/:id" element={<DetalhesPessoas />} />
 
+			<Route path="/cidades" element={<ListagemCidades />} />
+			<Route path="/cidades/detalhe/:id" element={<DetalhesCidades />} />
 
 
-			{/* <Route path="/clientes" element={<Button variant="contained" color='primary' onClick={toggleDrawerOpen}>Clientes</Button>} /> */}
-			{/* <Route path="*" element={<Navigate to="/pagina-inicial"/>}/> */}
+
+
+			<Route path="*" element={<Navigate to="/pagina-inicial" />} />
 		</Routes>
 	);
 };
