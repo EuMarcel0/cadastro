@@ -1,22 +1,17 @@
 {
   "pessoas": [
     {
-      "id": 2,
-      "cityId": 2,
-      "fullName": "Lorencia Benevides",
-      "email": "lorencia@gmail.com"
+      "id": 4,
+      "cityId": 4,
+      "fullName": "José Souza",
+      "email": "jose@hotmail.com"
     },
     {
-      "fullName": "José Loencio",
-      "email": "jose@hotmail.com",
-      "cityId": "4",
-      "id": 4
-    },
-    {
-      "fullName": "MARCELO RIBEIRO DA SILVA",
-      "email": "vistaeasy@gmail.com",
-      "cityId": "Bom Jesus da Lapa",
-      "id": 5
+      "cityId": 7,
+      "fullName": "Marcelo Santos Benevides",
+      "email": "marcelo.dev.js@hotmail.com",
+      "id": 6
     }
-  ]
+  ],
+  "cidades": []
 }
