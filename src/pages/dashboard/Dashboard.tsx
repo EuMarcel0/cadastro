@@ -1,4 +1,4 @@
-import { Box, Icon, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Grid, Icon, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 
 import { CardDashboard } from './components/CardDashboard';
@@ -65,12 +65,13 @@ export const Dashboard = () => {
 				</Box>
 			</Box>
 			<Box
+				width='100%'
+				height='100%'
 				display='flex'
 				justifyContent='center'
 				alignItems='center'
-				gap={7}
-				width='100%'
-				height='100%'
+				padding={2}
+				gap={5}
 			>
 				<CardDashboard
 					title='Total de pessoas'
