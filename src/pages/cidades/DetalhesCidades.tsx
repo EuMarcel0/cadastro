@@ -149,7 +149,7 @@ export const DetalhesCidades: React.FC = () => {
 							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
 								<UnformInputText fullWidth
 									name='name'
-									label='Nome completo'
+									label='Nome da cidade'
 									autoFocus
 									disabled={loading}
 									onChange={e => setName(e.target.value)}

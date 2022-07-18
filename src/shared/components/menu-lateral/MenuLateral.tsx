@@ -65,7 +65,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 				>
 					<Box
 						width='100%'
-						padding='5px'
+						padding='12px'
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
@@ -90,7 +90,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 							<Typography variant='caption'>Marcelo Silva</Typography>
 						</Box>
 					</Box>
-					<Divider sx={{ marginY: '3px' }} />
+					<Divider sx={{ marginY: '2px' }} />
 					<Box flex='1' >
 						<List component='nav'>
 							{drawerOptions.map((item, index) => (
