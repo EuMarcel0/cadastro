@@ -8,6 +8,7 @@ import { PersonService } from '../../shared/services/person/PersonService';
 import peopleIllustration from '../../assets/images/people.svg';
 import { UnformInputText, useVForm, VForm, VFormErrors } from '../../shared/components/form';
 import { LayoutBaseDePagina } from '../../shared/layouts';
+import { AutoCompleteCityForm } from './components/AutoCompleteCityForm';
 
 interface IFormProps {
 	email: string;
@@ -50,13 +51,14 @@ export const DetalhesPessoas: React.FC = () => {
 			unformRef.current?.setData({
 				email: '',
 				fullName: '',
-				cityId: ''
+				cityId: undefined,
 			});
 		}
 
 	}, [id]);
 
 	const handleSave = (data: IFormProps) => {
+		console.log(data);
 		validateYupFormSchema.validate(data, { abortEarly: false })
 			.then((validatesData) => {
 				setLoading(true);
@@ -173,12 +175,7 @@ export const DetalhesPessoas: React.FC = () => {
 						</Grid>
 						<Grid container item direction='row' justifyContent='center'>
 							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
-								<UnformInputText
-									fullWidth
-									name='cityId'
-									label='Código da cidade'
-									disabled={loading}
-								/>
+								<AutoCompleteCityForm externalLoading={loading} />
 							</Grid>
 						</Grid>
 

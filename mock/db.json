@@ -2,16 +2,65 @@
   "pessoas": [
     {
       "id": 4,
-      "cityId": 4,
       "fullName": "José Souza",
-      "email": "jose@hotmail.com"
+      "email": "jose@hotmail.com",
+      "cityId": 7
     },
     {
-      "cityId": 7,
+      "id": 6,
       "fullName": "Marcelo Santos Benevides",
       "email": "marcelo.dev.js@hotmail.com",
-      "id": 6
+      "cityId": 2
     }
   ],
-  "cidades": []
+  "cidades": [
+    {
+      "name": "Bom Jesus da Lapa",
+      "id": 1
+    },
+    {
+      "name": "Caetité",
+      "id": 2
+    },
+    {
+      "name": "Santa Maria da Vitória",
+      "id": 3
+    },
+    {
+      "name": "Barreiras",
+      "id": 4
+    },
+    {
+      "name": "Igapora",
+      "id": 5
+    },
+    {
+      "name": "Paratinga",
+      "id": 6
+    },
+    {
+      "name": "Nova York",
+      "id": 7
+    },
+    {
+      "name": "Toronto",
+      "id": 8
+    },
+    {
+      "name": "Buenos Aires",
+      "id": 9
+    },
+    {
+      "name": "Guanambi",
+      "id": 10
+    },
+    {
+      "name": "Ibotirama",
+      "id": 11
+    },
+    {
+      "name": "Brumado",
+      "id": 12
+    }
+  ]
 }

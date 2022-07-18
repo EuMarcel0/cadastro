@@ -143,7 +143,7 @@ export const DetalhesCidades: React.FC = () => {
 						}
 
 						<Grid item>
-							<Typography variant='h6' align='center' marginY={4} >Informe seus dados</Typography>
+							<Typography variant='h6' align='center' marginY={4} >Informe o nome da cidade</Typography>
 						</Grid>
 						<Grid container item direction='row' justifyContent='center'>
 							<Grid item xs={12} sm={12} md={10} lg={8} xl={6}>
