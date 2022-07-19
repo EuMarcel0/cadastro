@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
-import { Box, Icon, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { Box, CardMedia, Divider, Icon, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { PersonService } from '../../shared/services/person/PersonService';
 import { CityService } from '../../shared/services/city/CityService';
@@ -15,6 +15,7 @@ import Logo from '../../assets/images/logo.png';
 export const Dashboard = () => {
 	const { toggleDrawerOpen } = useDrawerContext();
 	const theme = useTheme();
+	const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -58,14 +59,13 @@ export const Dashboard = () => {
 			}}
 		>
 			<Box
-				padding={5}
+				padding={1}
 				display='flex'
 				justifyContent='space-between'
 				alignItems='center'
 				component={Paper}
 				borderRadius='0'
 				height='140px'
-				style={{ backgroundImage: BgWave }}
 			>
 				{smDown &&
 					<IconButton onClick={toggleDrawerOpen}>
@@ -76,10 +76,14 @@ export const Dashboard = () => {
 					display='flex'
 					alignItems='center'
 					justifyContent='center'
-					width={smDown ? '40px' : '60px'}
+					width={smDown ? '200px' : 'auto'}
 					height='auto'
 				>
-					<img src={Logo} alt="logo_img" width='100%' />
+
+					<CardMedia component="img" src={Logo} alt='logo_img' sx={{ width: '30px' }} />
+
+					<Typography variant='caption'>My<Divider /></Typography>
+					<Typography variant='caption'>- System<Divider /></Typography>
 				</Box>
 				<Box
 					width='100%'

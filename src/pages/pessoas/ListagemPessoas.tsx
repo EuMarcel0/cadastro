@@ -73,7 +73,6 @@ export const ListagemPessoas: React.FC = () => {
 
 			/>
 			}
-
 		>
 			<Box component={Paper} elevation={6} width='auto'>
 				<TableContainer>
