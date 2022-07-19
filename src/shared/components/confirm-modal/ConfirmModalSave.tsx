@@ -45,7 +45,7 @@ export const ConfirmModalSave: React.FC<IConfirmModal> = ({ title, description, 
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button sx={{ borderRadius: '0' }} onClick={onCloseModaAndBack} variant='contained'>Fechar e voltar</Button>
+					<Button sx={{ borderRadius: '0' }} onClick={onCloseModaAndBack} variant='contained'>Salvar e fechar</Button>
 					<Button sx={{ borderRadius: '0' }} onClick={onCloseModalSave} variant='outlined'>OK</Button>
 				</DialogActions>
 			</Dialog>

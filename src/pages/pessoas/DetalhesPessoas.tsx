@@ -186,8 +186,8 @@ export const DetalhesPessoas: React.FC = () => {
 			{
 				modalSaving &&
 				<ConfirmModalSave
-					title='Registro salvo com sucesso!'
-					description='Clique em "OK" para permanecer na tela de edição'
+					title='Registro salvo com sucesso'
+					description='Clique em OK para permanecer na tela de edição'
 					onCloseModalSave={() => setModalSaving(modalSaving === true ? false : true)}
 					onCloseModaAndBack={() => navigate('/pessoas')}
 				/>

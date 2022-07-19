@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
 import { Brightness4 } from '@mui/icons-material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, Button, IconButton } from '@mui/material';
+import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, IconButton } from '@mui/material';
 
 
 import ImageProfile from '../../../assets/images/perfil.png';

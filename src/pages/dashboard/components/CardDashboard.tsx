@@ -6,13 +6,15 @@ interface ICardDashboardProps {
 	image: string;
 	alt: string;
 	totalCount: number;
+
+	handleClick?: () => void;
 }
 
-export const CardDashboard: React.FC<ICardDashboardProps> = ({ description, title, image, alt, totalCount }) => {
+export const CardDashboard: React.FC<ICardDashboardProps> = ({ description, title, image, alt, totalCount, handleClick }) => {
 	return (
 
 		<Card sx={{ maxWidth: 350, height: '350px' }}>
-			<CardActionArea >
+			<CardActionArea onClick={handleClick}>
 				<CardMedia
 					component="img"
 					image={image}

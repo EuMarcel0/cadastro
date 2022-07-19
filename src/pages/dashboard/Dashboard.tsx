@@ -1,11 +1,16 @@
-import { Box, Grid, Icon, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
+import { Box, Icon, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
 
-import { CardDashboard } from './components/CardDashboard';
-import { useDrawerContext } from '../../shared/contexts';
-import Logo from '../../assets/images/logo.png';
+import { PersonService } from '../../shared/services/person/PersonService';
+import { CityService } from '../../shared/services/city/CityService';
 import PeopleIllustration from '../../assets/images/people2.svg';
 import CityIllustration from '../../assets/images/city.svg';
+import { CardDashboard } from './components/CardDashboard';
+import { useDrawerContext } from '../../shared/contexts';
+import BgWave from '../../assets/images/wave.svg';
+import Logo from '../../assets/images/logo.png';
 
 export const Dashboard = () => {
 	const { toggleDrawerOpen } = useDrawerContext();
@@ -13,11 +18,44 @@ export const Dashboard = () => {
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
+	const navigate = useNavigate();
+
+	const [cityTotalCount, setCityTotalCount] = useState(0);
+	const [peopleTotalCount, setPeopleTotalCount] = useState(0);
+
+	useEffect(() => {
+		CityService.getAll(1, '')
+			.then((response) => {
+				if (response instanceof Error) {
+					alert(response.message);
+				} else {
+					console.log(response.totalCount);
+					setCityTotalCount(response.totalCount);
+				}
+			});
+
+		PersonService.getAll(1, '')
+			.then((response) => {
+				if (response instanceof Error) {
+					alert(response.message);
+				} else {
+					setPeopleTotalCount(response.totalCount);
+				}
+			});
+	}, [cityTotalCount, peopleTotalCount]);
+
 	return (
 		<Box
 			display='flex'
 			flexDirection='column'
 			height='100%'
+			position='relative'
+			sx={{
+				backgroundImage: `url(${BgWave})`,
+				backgroundRepeat: 'no-repeat',
+				backgroundSize: 'cover',
+				backgroundPosition: 'center'
+			}}
 		>
 			<Box
 				padding={5}
@@ -27,6 +65,7 @@ export const Dashboard = () => {
 				component={Paper}
 				borderRadius='0'
 				height='140px'
+				style={{ backgroundImage: BgWave }}
 			>
 				{smDown &&
 					<IconButton onClick={toggleDrawerOpen}>
@@ -76,20 +115,22 @@ export const Dashboard = () => {
 				gap={4}
 			>
 				<CardDashboard
+					handleClick={() => navigate('/pessoas')}
 					title='Total de pessoas'
 					description='Este é o numero total de pessoas que se encontram cadastradas no sistema'
 					image={PeopleIllustration}
 					alt='pessoa_img'
-					totalCount={20}
+					totalCount={peopleTotalCount}
 				/>
 				<CardDashboard
+					handleClick={() => navigate('/cidades')}
 					title='Total de cidades'
 					description='Este é o numero total de cidades que se encontram cadastradas no sistema'
 					image={CityIllustration}
 					alt='city_img'
-					totalCount={30}
+					totalCount={cityTotalCount}
 				/>
 			</Box>
-		</Box>
+		</Box >
 	);
 };
