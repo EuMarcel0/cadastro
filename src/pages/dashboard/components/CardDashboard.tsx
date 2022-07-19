@@ -11,11 +11,10 @@ interface ICardDashboardProps {
 export const CardDashboard: React.FC<ICardDashboardProps> = ({ description, title, image, alt, totalCount }) => {
 	return (
 
-		<Card sx={{ maxWidth: 345 }}>
-			<CardActionArea>
+		<Card sx={{ maxWidth: 350, height: '350px' }}>
+			<CardActionArea >
 				<CardMedia
 					component="img"
-					height='263px'
 					image={image}
 					alt={alt}
 				/>

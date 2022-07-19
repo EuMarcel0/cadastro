@@ -4,13 +4,14 @@ import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
 import { CardDashboard } from './components/CardDashboard';
 import { useDrawerContext } from '../../shared/contexts';
 import Logo from '../../assets/images/logo.png';
-import PeopleIllustration from '../../assets/images/people.svg';
+import PeopleIllustration from '../../assets/images/people2.svg';
 import CityIllustration from '../../assets/images/city.svg';
 
 export const Dashboard = () => {
 	const { toggleDrawerOpen } = useDrawerContext();
 	const theme = useTheme();
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
 	return (
 		<Box
@@ -68,10 +69,11 @@ export const Dashboard = () => {
 				width='100%'
 				height='100%'
 				display='flex'
+				flexDirection={mdDown ? 'column' : 'row'}
 				justifyContent='center'
 				alignItems='center'
-				padding={2}
-				gap={5}
+				padding={1}
+				gap={4}
 			>
 				<CardDashboard
 					title='Total de pessoas'
