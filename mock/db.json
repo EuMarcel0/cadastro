@@ -11,6 +11,12 @@
       "fullName": "Marcelo Ribeiro da Silva",
       "email": "marcelo.dev.js@hotmail.com",
       "cityId": 7
+    },
+    {
+      "fullName": "Lorencia Souza Silva",
+      "email": "lorencia_souza@hotmail.com",
+      "cityId": 4,
+      "id": 6
     }
   ],
   "cidades": [
@@ -63,7 +69,7 @@
       "id": 12
     }
   ],
-  "auth":{
-	"accessToken": "kjrk-yhtj-scbv-spkr"
-}
+  "auth": {
+    "accessToken": "kjrk-yhtj-scbv-spkr"
+  }
 }
