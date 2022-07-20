@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GitHub, LinkedIn, WhatsApp } from '@mui/icons-material';
-import { Box, CardMedia, Divider, Icon, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, CardMedia, CircularProgress, Divider, Icon, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 
 import { PersonService } from '../../shared/services/person/PersonService';
 import { CityService } from '../../shared/services/city/CityService';
@@ -14,19 +14,21 @@ import Logo from '../../assets/images/logo.png';
 
 export const Dashboard = () => {
 	const { toggleDrawerOpen } = useDrawerContext();
+	const navigate = useNavigate();
 	const theme = useTheme();
-	const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
+
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
-	const navigate = useNavigate();
-
-	const [cityTotalCount, setCityTotalCount] = useState(0);
 	const [peopleTotalCount, setPeopleTotalCount] = useState(0);
+	const [cityTotalCount, setCityTotalCount] = useState(0);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+		setLoading(true);
 		CityService.getAll(1, '')
 			.then((response) => {
+				setLoading(false);
 				if (response instanceof Error) {
 					alert(response.message);
 				} else {
@@ -124,7 +126,7 @@ export const Dashboard = () => {
 					description='Este é o numero total de pessoas que se encontram cadastradas no sistema'
 					image={PeopleIllustration}
 					alt='pessoa_img'
-					totalCount={peopleTotalCount}
+					totalCount={loading ? <CircularProgress /> : peopleTotalCount}
 				/>
 				<CardDashboard
 					handleClick={() => navigate('/cidades')}
@@ -132,7 +134,8 @@ export const Dashboard = () => {
 					description='Este é o numero total de cidades que se encontram cadastradas no sistema'
 					image={CityIllustration}
 					alt='city_img'
-					totalCount={cityTotalCount}
+					totalCount={loading ? <CircularProgress /> : cityTotalCount}
+
 				/>
 			</Box>
 		</Box >

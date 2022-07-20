@@ -5,3 +5,5 @@ export * from './cidades/DetalhesCidades';
 
 export * from './pessoas/ListagemPessoas';
 export * from './pessoas/DetalhesPessoas';
+
+export * from './login/Login';
