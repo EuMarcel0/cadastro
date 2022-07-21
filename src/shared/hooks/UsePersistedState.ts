@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface IUsePersistedStateProps{
-	key: string;
-	initialValue: 'light' | 'dark';
-}
-
-export const usePersistedState = ({key, initialValue} : IUsePersistedStateProps) => {
+export const usePersistedState = (key: string, initialValue: any) => {
 	const [ state, setState ] = useState(() => {
 		const storageValueTheme =  localStorage.getItem(key);
 		if(storageValueTheme){

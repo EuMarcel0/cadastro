@@ -20,11 +20,10 @@ export const useAppThemeContext = () => {
 };
 
 export const AppThemeProvider: React.FC<iAppThemeProvider> = ({ children }) => {
-	const { state, setState } = usePersistedState('tm', 'light');
-	// const [themeName, setThemeName] = useState<string>('light');
+	const { state, setState } = usePersistedState(LOCAL_STORAGE_APP__THEME, LightTheme);
 
 	const toggleTheme = useCallback(() => {
-		setState(state => state === 'light' ? 'dark' : 'light');
+		setState((themeName: string) => themeName === 'light' ? 'dark' : 'light');
 	}, [state]);
 
 	const theme = useMemo(() => {
