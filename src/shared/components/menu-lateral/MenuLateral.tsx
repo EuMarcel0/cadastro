@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom';
-import { Brightness4 } from '@mui/icons-material';
+import { Brightness4, Logout } from '@mui/icons-material';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import { Avatar, Box, Divider, Drawer, Icon, List, ListItemButton, ListItemIcon, ListItemText, useTheme, useMediaQuery, Typography, IconButton } from '@mui/material';
 
 
 import ImageProfile from '../../../assets/images/perfil.png';
-import { useDrawerContext, useAppThemeContext } from '../../contexts';
+import { useDrawerContext, useAppThemeContext, useAuthContex } from '../../contexts';
 
 interface iMenuLateral {
 	children: ReactNode;
@@ -22,7 +22,6 @@ interface IListItemLinkProps {
 
 const ListItemLink: React.FC<IListItemLinkProps> = ({ to, icon, label, handleOnClick, children }) => {
 	const navigate = useNavigate();
-
 	const resolvedPath = useResolvedPath(to);
 	const matchPath = useMatch({ path: resolvedPath.pathname, end: false });
 
@@ -51,6 +50,7 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const { isDrawerOpen, drawerOptions, toggleDrawerOpen } = useDrawerContext();
 	const { toggleTheme } = useAppThemeContext();
+	const { onLogout } = useAuthContex();
 
 	return (
 		<Box>
@@ -75,6 +75,9 @@ export const MenuLateral: React.FC<iMenuLateral> = ({ children }) => {
 						<Box display='flex' justifyContent='flex-end' width='100%'>
 							<IconButton onClick={toggleTheme} size='small'>
 								<Brightness4 sx={smDown ? { width: '1.5rem', height: '1rem' } : { width: '1rem', height: '1rem' }} />
+							</IconButton>
+							<IconButton onClick={onLogout} size='small'>
+								<Logout sx={smDown ? { width: '1.5rem', height: '1rem' } : { width: '1rem', height: '1rem' }} />
 							</IconButton>
 							{smDown &&
 								<IconButton size='small'>

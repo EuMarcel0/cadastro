@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { useAuthContex } from '../../shared/contexts';
 
 interface ILoginProps {
@@ -5,12 +6,16 @@ interface ILoginProps {
 }
 
 export const Login: React.FC<ILoginProps> = ({ children }) => {
-	const { isAuthenticated } = useAuthContex();
+
+	const { isAuthenticated, onLogin } = useAuthContex();
+
 
 	if (isAuthenticated) {
 		return <>{children}</>;
 	}
 	return (
-		<div>Login</div>
+		<div>
+			<button onClick={() => onLogin('email', 'senha')}>Entrar</button>
+		</div>
 	);
 };
