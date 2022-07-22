@@ -78,14 +78,13 @@ export const Dashboard = () => {
 					display='flex'
 					alignItems='center'
 					justifyContent='center'
-					width={smDown ? '200px' : 'auto'}
+					width={smDown ? '310px' : 'auto'}
 					height='auto'
 				>
 
-					<CardMedia component="img" src={Logo} alt='logo_img' sx={{ width: '30px' }} />
+					<CardMedia component="img" src={Logo} alt='logo_img' sx={{ width: '75px' }} />
 
-					<Typography variant='caption'>My<Divider /></Typography>
-					<Typography variant='caption'>- System<Divider /></Typography>
+					<Typography variant='caption' color='#1670c6' fontWeight='bold' >My System<Divider /></Typography>
 				</Box>
 				<Box
 					width='100%'

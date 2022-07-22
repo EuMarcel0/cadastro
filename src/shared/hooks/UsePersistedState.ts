@@ -1,4 +1,10 @@
-import { useEffect, useState } from 'react';
+import { SetStateAction } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
+
+// type TProps<T>= [
+// 	T,
+// 	Dispatch<SetStateAction<T>>,
+// ]
 
 export const usePersistedState = (key: string, initialValue: any) => {
 	const [ state, setState ] = useState(() => {

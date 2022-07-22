@@ -20,6 +20,7 @@ export const useAppThemeContext = () => {
 };
 
 export const AppThemeProvider: React.FC<iAppThemeProvider> = ({ children }) => {
+	//O initial value recebe Any pois estou passando para ele não a string com nome do theme, mas sim o próprio theme que foi importado
 	const { state, setState } = usePersistedState(LOCAL_STORAGE_APP__THEME, LightTheme);
 
 	const toggleTheme = useCallback(() => {
