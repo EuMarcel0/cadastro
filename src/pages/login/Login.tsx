@@ -1,6 +1,7 @@
 import { Box, Button, CardMedia, Divider, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import * as yup from 'yup';
 
-import { UnformInputText } from '../../shared/components/form';
+import { UnformInputText, useVForm } from '../../shared/components/form';
 import { useAppThemeContext, useAuthContex } from '../../shared/contexts';
 import Banner from '../../assets/images/login.svg';
 import Logo from '../../assets/images/logo.png';
@@ -9,21 +10,53 @@ import Google from '../../assets/images/google.png';
 import Linkedin from '../../assets/images/linkedin.png';
 import { Form } from '@unform/web';
 import { Brightness4 } from '@mui/icons-material';
+import { useState } from 'react';
 
 interface ILoginProps {
 	children: React.ReactNode;
 }
 
+interface ILoginValidationProps {
+	email: string;
+	password: string;
+}
+
+const loginSchemaValidation: yup.SchemaOf<ILoginValidationProps> = yup.object().shape({
+	email: yup.string().required().email(),
+	password: yup.string().required().min(5),
+});
+
 export const Login: React.FC<ILoginProps> = ({ children }) => {
-	const { isAuthenticated, onLogin } = useAuthContex();
 	const theme = useTheme();
+	const personMediaQuery = useMediaQuery(theme.breakpoints.down(1000));
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+	const { isAuthenticated, onLogin } = useAuthContex();
 	const { toggleTheme } = useAppThemeContext();
+	const { unformRef } = useVForm();
+	const [loading, setLoading] = useState(false);
 
 	//Caso o usuário esteja autenticado, será redenrizado para ele toda a aplicação.
 	if (isAuthenticated) {
 		return <>{children}</>;
 	}
+
+	const handleSubmit = (data: ILoginValidationProps) => {
+		setLoading(true);
+		loginSchemaValidation.validate(data, { abortEarly: false })
+			.then((dataValidated) => {
+				onLogin(dataValidated.email, dataValidated.password);
+			})
+			.catch((errors: yup.ValidationError) => {
+
+				errors.inner.map(error => {
+					if (!error.path) return;
+					console.log(typeof error.message);
+
+					// unformRef.current?.setErrors(error.message);
+				});
+			});
+	};
 
 	//Caso o usuário não esteja autenticado, será renderizado a tela de login.
 	return (
@@ -36,6 +69,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 			height='100vh'
 
 			component={Paper}
+			elevation={0}
 		>
 			<Box
 				display='flex'
@@ -47,6 +81,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 				marginBottom={1}
 				gap={2}
 				component={Paper}
+				elevation={0}
 			>
 				<Box display='flex' justifyContent='left' alignItems='center' flex='2'>
 					<CardMedia component="img" src={Logo} alt='logo_img' sx={{ width: '75px' }} />
@@ -62,46 +97,91 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 				width='100%'
 			>
 				<Box
-					display='flex'
+					display={smDown ? 'none' : 'flex'}
 					justifyContent='center'
 					alignItems='center'
 					flex='2'
 					padding='10px'
 					component={Paper}
+					elevation={0}
 				>
 					<CardMedia component="img" src={Banner} alt='banner_image' style={{ width: '70%' }} />
 				</Box>
-				<Box display='flex' flexDirection='column' justifyContent='center' alignItems='left' flex='1' padding='10px' component={Paper} elevation={3}>
+				<Box display='flex'
+					flexDirection='column'
+					justifyContent='center'
+					alignItems='left'
+					flex={mdDown ? '3' : smDown ? '2' : personMediaQuery ? '2' : '1'}
+					padding='10px'
+					component={Paper}
+					elevation={8}
+					textAlign='center'
+					height='93%'
+				>
 					<Box display='flex' flexDirection='column' marginBottom={2}>
-						<Typography variant='caption' fontSize='14px'>Bem-vindo ao My System👋</Typography>
-						<Typography variant='caption' fontSize='12px' color='GrayText'>Por favor, informe seus dados para ter acesso ao sistema</Typography>
+						<Typography variant='caption' fontSize='14px'>
+							Bem-vindo ao My System👋
+						</Typography>
+						<Typography variant='caption' fontSize='12px' color='GrayText'>
+							Por favor, informe seus dados para ter acesso ao sistema
+						</Typography>
 					</Box>
 					<Box display='flex' flexDirection='column' alignItems='center'>
-						<Form onSubmit={console.log} style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+						<Form
+							ref={unformRef}
+							onSubmit={handleSubmit}
+							style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
+						>
 							<UnformInputText name='email' label='e-mail' size='medium' />
-							<UnformInputText name='password' label='senha' />
+							<UnformInputText name='password' label='senha' type='password' />
 						</Form>
-						<Button variant='contained' sx={{ width: '80%' }} onClick={() => onLogin('email', 'senha')}>Entrar</Button>
-						<Box display='flex' justifyContent='center' alignItems='center' marginTop={2}>
-							<Typography variant='caption' fontSize='14px' color='GrayText'>Novo por aqui? </Typography>
+						<Button
+							variant='contained'
+							sx={{ width: '80%' }}
+							type='submit'
+							onClick={() => unformRef.current?.submitForm()}
+						>
+							Entrar
+						</Button>
+						<Box
+							display='flex'
+							justifyContent='center'
+							alignItems='center'
+							marginTop={2}
+						>
+							<Typography variant='caption' fontSize='14px' color='GrayText'>
+								Novo por aqui?
+							</Typography>
 							<a href="#" style={{ display: 'inline-block', fontSize: '14px', textDecoration: 'none' }}>cadastre-se</a>
 						</Box>
 						<Typography variant='caption' fontSize='14px' color='GrayText' textAlign='center' marginTop={3}>ou</Typography>
-						<Box display='flex' justifyContent='center' alignItems='center' gap={1} marginTop={4}>
+						<Box display='flex' justifyContent='center' alignItems='center' gap={1} marginTop={4} >
 							<Button>
-								<CardMedia component='img' src={Facebook} alt='facebook-icon' sx={{ width: '35px' }} />
+								<CardMedia
+									component='img'
+									src={Facebook}
+									alt='facebook-icon'
+									sx={{ width: '35px' }} />
 							</Button>
 							<Button>
-								<CardMedia component='img' src={Google} alt='google-icon' sx={{ width: '35px' }} />
+								<CardMedia
+									component='img'
+									src={Google}
+									alt='google-icon'
+									sx={{ width: '35px' }} />
 							</Button>
 							<Button>
-								<CardMedia component='img' src={Linkedin} alt='linkedin-icon' sx={{ width: '35px' }} />
+								<CardMedia
+									component='img'
+									src={Linkedin}
+									alt='linkedin-icon'
+									sx={{ width: '35px' }} />
 							</Button>
 						</Box>
 					</Box>
-
 				</Box>
 			</Box>
-		</Box>
+			<Typography variant='caption' fontSize='14px' color='GrayText' textAlign='center'>© Copyright 2022 My System</Typography>
+		</Box >
 	);
 };
