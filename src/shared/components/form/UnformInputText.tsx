@@ -20,7 +20,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 	}, [fieldName, value, registerField]);
 
 	return (
-		<Box>
+		<Box sx={{ width: '100%' }} display='flex' justifyContent='center'>
 			<TextField
 				{...rest}
 				value={value}
@@ -30,7 +30,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 				defaultValue={defaultValue}
 				error={!!error}
 				variant='outlined'
-				sx={{ my: '10px' }}
+				sx={{ my: '10px', width: '80%' }}
 			/>
 		</Box>
 	);

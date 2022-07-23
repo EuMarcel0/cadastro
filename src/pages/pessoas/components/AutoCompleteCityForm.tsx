@@ -1,4 +1,4 @@
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, Box, CircularProgress, TextField } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounce } from '../../../shared/hooks';
@@ -58,27 +58,30 @@ export const AutoCompleteCityForm: React.FC<IAutoCompleteProps> = ({ externalLoa
 	}, [selectedId, options]);
 
 	return (
-		<Autocomplete
-			options={options}
+		<Box sx={{ width: '100%' }} display='flex' justifyContent='center'>
+			<Autocomplete
+				options={options}
 
-			openText='Abrir'
-			closeText='Fechar'
-			loadingText='Carregando...'
-			noOptionsText='Sem opção'
+				openText='Abrir'
+				closeText='Fechar'
+				loadingText='Carregando...'
+				noOptionsText='Sem opção'
 
-			loading={isLoading}
-			popupIcon={isLoading ? <CircularProgress size={20} /> : undefined}
-			onInputChange={(_, newValue) => setSearch(newValue)}
-			onChange={(_, newValue) => { setSelectedId(newValue?.id); setSearch(''); clearError(); }}
-			value={AutocompleteOption}
-			disabled={externalLoading}
+				loading={isLoading}
+				popupIcon={isLoading ? <CircularProgress size={20} /> : undefined}
+				onInputChange={(_, newValue) => setSearch(newValue)}
+				onChange={(_, newValue) => { setSelectedId(newValue?.id); setSearch(''); clearError(); }}
+				value={AutocompleteOption}
+				disabled={externalLoading}
 
-			renderInput={(params) => <TextField
-				{...params}
-				label='Cidade'
-				error={!!error}
-				helperText={error}
-			/>}
-		/>
+				renderInput={(params) => <TextField
+					{...params}
+					label='Cidade'
+					error={!!error}
+					helperText={error}
+				/>}
+				sx={{ my: '10px', width: '80%', alignContent: 'center' }}
+			/>
+		</Box>
 	);
 };
