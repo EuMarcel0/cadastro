@@ -1,4 +1,4 @@
-import { Box, Button, CardMedia, Divider, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, CardMedia, CircularProgress, Divider, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
 import * as yup from 'yup';
 
 import { UnformInputText, useVForm } from '../../shared/components/form';
@@ -9,7 +9,7 @@ import Facebook from '../../assets/images/facebook.png';
 import Google from '../../assets/images/google.png';
 import Linkedin from '../../assets/images/linkedin.png';
 import { Form } from '@unform/web';
-import { Brightness4 } from '@mui/icons-material';
+import { Brightness4, LockOpen } from '@mui/icons-material';
 import { useState } from 'react';
 
 interface ILoginProps {
@@ -19,6 +19,10 @@ interface ILoginProps {
 interface ILoginValidationProps {
 	email: string;
 	password: string;
+}
+
+interface IValidationErrors {
+	[key: string]: string;
 }
 
 const loginSchemaValidation: yup.SchemaOf<ILoginValidationProps> = yup.object().shape({
@@ -45,15 +49,19 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 		setLoading(true);
 		loginSchemaValidation.validate(data, { abortEarly: false })
 			.then((dataValidated) => {
-				onLogin(dataValidated.email, dataValidated.password);
+				setLoading(true);
+				onLogin(dataValidated.email, dataValidated.password)
+					.then(() => {
+						setLoading(false);
+					});
 			})
 			.catch((errors: yup.ValidationError) => {
-
+				const validationErrors: IValidationErrors = {};
 				errors.inner.map(error => {
 					if (!error.path) return;
-					console.log(typeof error.message);
-
-					// unformRef.current?.setErrors(error.message);
+					validationErrors[error.path] = error.message;
+					unformRef.current?.setErrors(validationErrors);
+					setLoading(false);
 				});
 			});
 	};
@@ -132,14 +140,16 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 							onSubmit={handleSubmit}
 							style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
 						>
-							<UnformInputText name='email' label='e-mail' size='medium' />
-							<UnformInputText name='password' label='senha' type='password' />
+							<UnformInputText name='email' label='e-mail' size='medium' disabled={loading} />
+							<UnformInputText name='password' label='senha' type='password' disabled={loading} />
 						</Form>
 						<Button
 							variant='contained'
 							sx={{ width: '80%' }}
 							type='submit'
 							onClick={() => unformRef.current?.submitForm()}
+							disabled={loading}
+							startIcon={loading ? <CircularProgress size={20} /> : <LockOpen />}
 						>
 							Entrar
 						</Button>
