@@ -1,6 +1,9 @@
-# ENDPOINT PARA REQUISIÇÕES AO BACKEND - JSON-SERVER
+# ENDPOINT FOR REQUISITION TO BACKEND - JSON-SERVER
 
-- Endpoint:
+-   Endpoint:
+
 ```
 https://localhost:3333
 ```
+
+For using, modify this endpoint and inserted your endpoint.

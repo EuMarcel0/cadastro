@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, TextField, TextFieldProps } from '@mui/material';
+import { Box, TextField, TextFieldProps, useMediaQuery, useTheme } from '@mui/material';
 import { useField } from '@unform/core';
 
 type IUnformInputTextProps = TextFieldProps & {
@@ -10,6 +10,8 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 
 	const { defaultValue, error, fieldName, registerField, clearError } = useField(name);
 	const [value, setValue] = useState(defaultValue || '');
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
 	useEffect(() => {
 		registerField({
@@ -30,7 +32,7 @@ export const UnformInputText: React.FC<IUnformInputTextProps> = ({ name, ...rest
 				defaultValue={defaultValue}
 				error={!!error}
 				variant='outlined'
-				sx={{ my: '10px', width: '80%' }}
+				sx={{ my: '10px', width: smDown ? '100%' : '80%' }}
 			/>
 		</Box>
 	);

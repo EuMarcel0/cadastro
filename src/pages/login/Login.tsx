@@ -1,4 +1,4 @@
-import { Box, Button, CardMedia, CircularProgress, Divider, IconButton, Link, Paper, TextField, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, CardMedia, CircularProgress, Divider, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
 import * as yup from 'yup';
 
 import { UnformInputText, useVForm } from '../../shared/components/form';
@@ -35,10 +35,11 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 	const personMediaQuery = useMediaQuery(theme.breakpoints.down(1000));
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+
 	const { isAuthenticated, onLogin } = useAuthContex();
+	const [loading, setLoading] = useState(false);
 	const { toggleTheme } = useAppThemeContext();
 	const { unformRef } = useVForm();
-	const [loading, setLoading] = useState(false);
 
 	//Caso o usuário esteja autenticado, será redenrizado para ele toda a aplicação.
 	if (isAuthenticated) {

@@ -1,4 +1,4 @@
-import { Autocomplete, Box, CircularProgress, TextField } from '@mui/material';
+import { Autocomplete, Box, CircularProgress, TextField, useMediaQuery, useTheme } from '@mui/material';
 import { useField } from '@unform/core';
 import { useEffect, useMemo, useState } from 'react';
 import { useDebounce } from '../../../shared/hooks';
@@ -16,6 +16,9 @@ interface IAutoCompleteProps {
 export const AutoCompleteCityForm: React.FC<IAutoCompleteProps> = ({ externalLoading = false }) => {
 
 	const { clearError, defaultValue, error, fieldName, registerField } = useField('cityId');
+
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
 	const [options, setOptions] = useState<IAutoCompleteCityFormOptionsProps[]>([]);
 	const [selectedId, setSelectedId] = useState<number | undefined>(defaultValue);
@@ -80,7 +83,7 @@ export const AutoCompleteCityForm: React.FC<IAutoCompleteProps> = ({ externalLoa
 					error={!!error}
 					helperText={error}
 				/>}
-				sx={{ my: '10px', width: '80%', alignContent: 'center' }}
+				sx={{ my: '10px', width: smDown ? '100%' : '80%', alignContent: 'center' }}
 			/>
 		</Box>
 	);
