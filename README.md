@@ -32,7 +32,7 @@ You need that in your project folder: [db.json](https://github.com/EuMarcel0/cad
 
 <hr/>
 
-### 🔧 Instalação
+### 🔧 Installation
 
 Access this link for viewer only login page: [click here](https://my-system-login.netlify.app/)
 
