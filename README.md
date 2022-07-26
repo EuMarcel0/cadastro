@@ -1,4 +1,9 @@
-<h1 style="color: #f1f1f1f1"><img src='src/assets/images/logo.png'/>My System - Crud of people and cities</h1>
+<h1 align="center" style="color: #f1f1f1f1">
+<p align="center">
+<img width="160" height='auto' src='src/assets/images/logo.png'/>
+</p>
+	My System - Crud of people and cities
+</h1>
 
 Project created in course on youtube channel of [Lucas Souza](https://www.youtube.com/c/LucasSouzaDev). Here, we have desenvolve the front-end of system register people and cities, with json-server for back-end.
 
