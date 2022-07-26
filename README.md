@@ -8,6 +8,7 @@
 Project created in course on youtube channel of [Lucas Souza](https://www.youtube.com/c/LucasSouzaDev). Here, we have desenvolve the front-end of system register people and cities, with json-server for back-end.
 
 <hr/>
+
 ### 🚀 Starting
 
 For using this application, you need that the back-end with json-server or real server is running in your PC.<br/>
