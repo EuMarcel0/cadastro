@@ -1,99 +1,116 @@
-<h1 style="color: #f1f1f1f1">My System - Crud of people and cities</h1>
+<h1 style="color: #f1f1f1f1"><img src='src/assets/images/logo.png'/>My System - Crud of people and cities</h1>
 
 Project created in course on youtube channel of [Lucas Souza](https://www.youtube.com/c/LucasSouzaDev). Here, we have desenvolve the front-end of system register people and cities, with json-server for back-end.
 
 <hr/>
-🚀 Starting
+### 🚀 Starting
 
 For using this application, you need that the back-end with json-server or real server is running in your PC.<br/>
 Consult here for view back-end with json-server: [**mock back-end**](https://github.com/EuMarcel0/cadastro/tree/main/mock).
 
-### 📋 Pré-requisitos
+<hr/>
 
-De que coisas você precisa para instalar o software e como instalá-lo?
+### 📋 Prerequisites
+
+You need that in your project folder: [db.json](https://github.com/EuMarcel0/cadastro/blob/main/mock/db.json)
 
 ```
-Dar exemplos
+-Create a folder with in your environment
+
+-Inside of folder, create a file with name db.json
+
+-Inside of file, insert yuor fakes infos to consult on back-end.
+
+-In package.json, configure your start server, exemple: ["server": "json-server ./mock/db.json -w --port 3333"]. After, start the server on terminal "npm run server" or "yarn server"
 ```
+
+<hr/>
 
 ### 🔧 Instalação
 
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
+Access this link for viewer only login page: [click here](https://my-system-login.netlify.app/)
 
-Diga como essa etapa será:
+**The app run only if exist a static backend inside your project.**
 
-```
-Dar exemplos
-```
-
-E repita:
+<br>
 
 ```
-Até finalizar
+Remember of start back-end in your project.
+
+Follow instructions in "Prerequisites"
 ```
 
-Termine com um exemplo de como obter dados do sistema ou como usá-los para uma pequena demonstração.
-
-## ⚙️ Executando os testes
-
-Explicar como executar os testes automatizados para este sistema.
-
-### 🔩 Analise os testes de ponta a ponta
-
-Explique que eles verificam esses testes e porquê.
+For more infos about project, talk to me:
 
 ```
-Dar exemplos
+marcelo.dev.js@hotmail.com
+or
+[LinkedIn]:https://www.linkedin.com/in/marcelo-ribeiro-da-silva-aa444921b/
 ```
 
-### ⌨️ E testes de estilo de codificação
+<hr/>
 
-Explique que eles verificam esses testes e porquê.
+## 🛠️ Built with
 
-```
-Dar exemplos
-```
+Technologies used in this project
 
-## 📦 Desenvolvimento
+-   [React](https://reactjs.org/docs/getting-started.html)
+-   [Typescript](https://www.typescriptlang.org/docs/)
+-   [Vite](https://vitejs.dev/guide/#trying-vite-online) - Bundle of project create
+-   [React Router v6](https://reactrouter.com/docs/en/v6/getting-started/installation)
+-   [Material Ui](https://mui.com/) - Design system for
+-   [ESLint](https://www.npmjs.com/package/eslint) - For rules of writing code
+-   [Axios](https://axios-http.com/ptbr/docs/intro) - Requests for API
+-   [json-server](https://www.npmjs.com/package/json-server) - mock back-end
+-   [Unform](https://unform-rocketseat.vercel.app/) - For forms
+-   [Yup](https://www.npmjs.com/package/yup) - For validation inputs
+<hr/>
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
+## 🖇️ COllaborating
 
-## 🛠️ Construído com
+Please, collaborate with project. I would be very happy.
 
-Mencione as ferramentas que você usou para criar seu projeto
+Thanks. 👋🚀
 
--   [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - O framework web usado
--   [Maven](https://maven.apache.org/) - Gerente de Dependência
--   [ROME](https://rometools.github.io/rome/) - Usada para gerar RSS
+<hr/>
 
-## 🖇️ Colaborando
+## 📌 Version
 
-Por favor, leia o [COLABORACAO.md](https://gist.github.com/usuario/linkParaInfoSobreContribuicoes) para obter detalhes sobre o nosso código de conduta e o processo para nos enviar pedidos de solicitação.
+I'm used the Git/Hub for controller of version is this project. All commits and all alterations, they are here.
 
-## 📌 Versão
+<hr/>
 
-Nós usamos [SemVer](http://semver.org/) para controle de versão. Para as versões disponíveis, observe as [tags neste repositório](https://github.com/suas/tags/do/projeto).
+## ✒️ Authors
 
-## ✒️ Autores
+-   **Marcelo Silva** - _Front-End_ - [ GitHub Profile](https://github.com/EuMarcel0)
+<hr/>
 
-Mencione todos aqueles que ajudaram a levantar o projeto desde o seu início
+## 📄 License
 
--   **Um desenvolvedor** - _Trabalho Inicial_ - [umdesenvolvedor](https://github.com/linkParaPerfil)
--   **Fulano De Tal** - _Documentação_ - [fulanodetal](https://github.com/linkParaPerfil)
+This project is open source.
 
-Você também pode ver a lista de todos os [colaboradores](https://github.com/usuario/projeto/colaboradores) que participaram deste projeto.
+<hr/>
 
-## 📄 Licença
+## 🎁 Expression of gratitude
 
-Este projeto está sob a licença (sua licença) - veja o arquivo [LICENSE.md](https://github.com/usuario/projeto/licenca) para detalhes.
+I'm very, very happy for concluded this project.
+Thanks for all support and orientations, [Lucas Souza](https://www.youtube.com/c/LucasSouzaDev). 🚀👋
 
-## 🎁 Expressões de gratidão
+<hr/>
 
--   Conte a outras pessoas sobre este projeto 📢
--   Convide alguém da equipe para uma cerveja 🍺
--   Obrigado publicamente 🤓.
--   etc.
+## 💻 Prints of app
 
----
+<small>Light theme</small>
 
-⌨️ com ❤️ por [Armstrong Lohãns](https://gist.github.com/lohhans) 😊
+<img src='src/assets/images/preview_login.png' />
+<img src='src/assets/images/preview_home.png' />
+<img src='src/assets/images/preview_edit_city.png' />
+<img src='src/assets/images/preview_edit_people.png' />
+
+<hr/>
+<small>Dark theme</small>
+
+<img src='src/assets/images/preview_login_dark.png' />
+<img src='src/assets/images/preview_home_dark.png' />
+<img src='src/assets/images/preview_edit_city_dark.png' />
+<img src='src/assets/images/preview_edit_people_dark.png' />
