@@ -17,6 +17,12 @@
       "email": "lorencia_souza@hotmail.com",
       "cityId": 4,
       "id": 6
+    },
+    {
+      "id": 7,
+      "fullName": "José Silva",
+      "email": "jose@gmail.com",
+      "cityId": 13
     }
   ],
   "cidades": [
@@ -67,6 +73,18 @@
     {
       "name": "Brumado",
       "id": 12
+    },
+    {
+      "name": "Rio de Janeiro",
+      "id": 13
+    },
+    {
+      "name": "Belém",
+      "id": 14
+    },
+    {
+      "name": "São Tomé",
+      "id": 15
     }
   ],
   "auth": {
