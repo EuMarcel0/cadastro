@@ -1,74 +1,34 @@
 import { useState } from 'react';
 
-import { Box, Button, CardMedia, Checkbox, CircularProgress, Divider, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
-import * as yup from 'yup';
+import { Box, CardMedia, Divider, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Brightness4 } from '@mui/icons-material';
 
 import { useAppThemeContext, useAuthContex } from '../../shared/contexts';
-import { UnformInputText, useVForm } from '../../shared/components/form';
-import { Brightness4, LockOpen } from '@mui/icons-material';
-import Linkedin from '../../assets/images/linkedin.png';
-import Facebook from '../../assets/images/facebook.png';
-import Google from '../../assets/images/google.png';
 import Banner from '../../assets/images/login.svg';
-import Logo from '../../assets/images/logo.png';
-import { Form } from '@unform/web';
 import { SideForm } from './components/SideForm';
+import Logo from '../../assets/images/logo.png';
 
 interface ILoginProps {
 	children: React.ReactNode;
 }
-
 export interface ILoginValidationProps {
 	email: string;
 	password: string;
 }
-
-interface IValidationErrors {
-	[key: string]: string;
-}
-
-const loginSchemaValidation: yup.SchemaOf<ILoginValidationProps> = yup.object().shape({
-	email: yup.string().required().email(),
-	password: yup.string().required().min(5),
-});
-
 export const Login: React.FC<ILoginProps> = ({ children }) => {
 	const theme = useTheme();
 	const personMediaQuery = useMediaQuery(theme.breakpoints.down(1000));
 	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 	const mdDown = useMediaQuery(theme.breakpoints.down('md'));
 
-	const { isAuthenticated, onLogin } = useAuthContex();
-	const [loading, setLoading] = useState(false);
+	const { isAuthenticated } = useAuthContex();
 	const [showPassword, setShowPassword] = useState(false);
 	const { toggleTheme } = useAppThemeContext();
-	const { unformRef } = useVForm();
 
 	//Caso o usuário esteja autenticado, será redenrizado para ele toda a aplicação.
 	if (isAuthenticated) {
 		return <>{children}</>;
 	}
-
-	const handleSubmit = (data: ILoginValidationProps) => {
-		setLoading(true);
-		loginSchemaValidation.validate(data, { abortEarly: false })
-			.then((dataValidated) => {
-				setLoading(true);
-				onLogin(dataValidated.email, dataValidated.password)
-					.then(() => {
-						setLoading(false);
-					});
-			})
-			.catch((errors: yup.ValidationError) => {
-				const validationErrors: IValidationErrors = {};
-				errors.inner.map(error => {
-					if (!error.path) return;
-					validationErrors[error.path] = error.message;
-					unformRef.current?.setErrors(validationErrors);
-					setLoading(false);
-				});
-			});
-	};
 
 	//Caso o usuário não esteja autenticado, será renderizado a tela de login.
 	return (
@@ -139,9 +99,7 @@ export const Login: React.FC<ILoginProps> = ({ children }) => {
 						</Typography>
 					</Box>
 					<SideForm
-						loading={loading}
 						showPassword={showPassword}
-						onSubmitForm={() => handleSubmit}
 						toggleShowPassword={() => setShowPassword(!showPassword)}
 					/>
 				</Box>

@@ -1,28 +1,63 @@
-import { LockOpen } from '@mui/icons-material';
+import { useState } from 'react';
+
 import { Box, Button, CardMedia, Checkbox, CircularProgress, Typography, useTheme } from '@mui/material';
+import { LockOpen } from '@mui/icons-material';
 import { Form } from '@unform/web';
+import * as yup from 'yup';
+
 import { UnformInputText, useVForm } from '../../../shared/components/form';
 import Linkedin from '../../../assets/images/linkedin.png';
 import Facebook from '../../../assets/images/facebook.png';
+import { useAuthContex } from '../../../shared/contexts';
 import Google from '../../../assets/images/google.png';
 import { ILoginValidationProps } from '../Login';
 
 interface ISideFormProps {
-	loading: boolean;
 	showPassword: boolean;
-	onSubmitForm: (data: ILoginValidationProps) => void;
 	toggleShowPassword: () => void;
 }
 
-export const SideForm = ({ loading, showPassword, onSubmitForm, toggleShowPassword }: ISideFormProps) => {
+const loginSchemaValidation: yup.SchemaOf<ILoginValidationProps> = yup.object().shape({
+	email: yup.string().required().email(),
+	password: yup.string().required().min(5),
+});
+
+interface IValidationErrors {
+	[key: string]: string;
+}
+
+export const SideForm = ({ showPassword, toggleShowPassword }: ISideFormProps) => {
 	const { unformRef } = useVForm();
 	const theme = useTheme();
+	const { isAuthenticated, onLogin } = useAuthContex();
+	const [loading, setLoading] = useState(false);
+
+	const handleSubmit = (data: ILoginValidationProps) => {
+		setLoading(true);
+		loginSchemaValidation.validate(data, { abortEarly: false })
+			.then((dataValidated) => {
+				setLoading(true);
+				onLogin(dataValidated.email, dataValidated.password)
+					.then(() => {
+						setLoading(false);
+					});
+			})
+			.catch((errors: yup.ValidationError) => {
+				const validationErrors: IValidationErrors = {};
+				errors.inner.map(error => {
+					if (!error.path) return;
+					validationErrors[error.path] = error.message;
+					unformRef.current?.setErrors(validationErrors);
+					setLoading(false);
+				});
+			});
+	};
 
 	return (
 		<Box display='flex' flexDirection='column' alignItems='center'>
 			<Form
 				ref={unformRef}
-				onSubmit={onSubmitForm}
+				onSubmit={handleSubmit}
 				style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
 			>
 				<UnformInputText name='email' label='e-mail' size='medium' disabled={loading} />
